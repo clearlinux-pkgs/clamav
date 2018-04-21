@@ -21,7 +21,7 @@ Configure miss: CHECK
 Configure miss: check.h usability
 Configure miss: check.h presence
 Configure miss: check.h
-Configure miss: pcre2-config
+Configure miss: libjson installation... checking for pcre2-config
 Configure miss: dn_expand in std libs
 Configure miss: libiconv_open in -liconv
 Configure miss: ncurses/ncurses.h usability
@@ -30,57 +30,6 @@ Configure miss: ncurses/ncurses.h
 Configure miss: clang option to accept ISO C89
 Configure miss: if clang static flag -static works
 Configure miss: if clang++ static flag -static works
+Configure miss: supported LLVM version
 Configure miss: clang option to accept ISO C89
-Configure miss: clang compiler
-Configure miss: gsview32
-Configure miss: the tclsh program in tclinclude directory
-Configure miss: tclsh8.4
-Configure miss: tclsh8.4.8
-Configure miss: tclsh8.4.7
-Configure miss: tclsh8.4.6
-Configure miss: tclsh8.4.5
-Configure miss: tclsh8.4.4
-Configure miss: tclsh8.4.3
-Configure miss: tclsh8.4.2
-Configure miss: tclsh8.4.1
-Configure miss: tclsh8.4.0
-Configure miss: tclsh8.3
-Configure miss: tclsh8.3.5
-Configure miss: tclsh8.3.4
-Configure miss: tclsh8.3.3
-Configure miss: tclsh8.3.2
-Configure miss: tclsh8.3.1
-Configure miss: tclsh8.3.0
-Configure miss: ocamlc
-Configure miss: ocamlopt
-Configure miss: ocamldep
-Configure miss: ocamldoc
-Configure miss: gas
-Configure miss: _ prefix in compiled symbols
-Configure miss: sys/dl.h usability
-Configure miss: sys/dl.h presence
-Configure miss: sys/dl.h
-Configure miss: dld.h usability
-Configure miss: dld.h presence
-Configure miss: dld.h
-Configure miss: mach-o/dyld.h usability
-Configure miss: mach-o/dyld.h presence
-Configure miss: mach-o/dyld.h
-Configure miss: malloc/malloc.h usability
-Configure miss: malloc/malloc.h presence
-Configure miss: malloc/malloc.h
-Configure miss: mach/mach.h usability
-Configure miss: mach/mach.h presence
-Configure miss: mach/mach.h
-Configure miss: CrashReporterClient.h usability
-Configure miss: CrashReporterClient.h presence
-Configure miss: CrashReporterClient.h
-Configure miss: __crashreporter_info__
-Configure miss: strerror_s
-Configure miss: malloc_zone_statistics
-Configure miss: sigsetjmp
-Configure miss: std::isinf in <cmath>
-Configure miss: finite in <ieeefp.h>
-Configure miss: if /dev/zero is needed for mmap
-Configure miss: 32-bit userspace on 64-bit system
-Configure miss: whether llvm-gcc is sane
+Configure miss: if clang static flag -static works
