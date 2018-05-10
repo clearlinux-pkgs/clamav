@@ -4,7 +4,7 @@
 #
 Name     : clamav
 Version  : 0.100.0
-Release  : 2
+Release  : 3
 URL      : https://www.clamav.net/downloads/production/clamav-0.100.0.tar.gz
 Source0  : https://www.clamav.net/downloads/production/clamav-0.100.0.tar.gz
 Summary  : A GPL virus scanner
