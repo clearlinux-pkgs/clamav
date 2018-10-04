@@ -1,0 +1,10 @@
+0.100.2
+bison
+bzip2-dev
+check
+flex
+pcre-dev
+pkgconfig(ncurses)
+pkgconfig(ncursesw)
+pkgconfig(systemd)
+systemd-dev
