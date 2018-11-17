@@ -3,6 +3,7 @@ bison
 bzip2-dev
 check
 flex
+llvm-dev
 pcre-dev
 pkgconfig(ncurses)
 pkgconfig(ncursesw)

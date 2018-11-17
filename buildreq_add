@@ -4,3 +4,4 @@ libxml2-dev
 openssl-dev
 zlib-dev
 xz-dev
+pcre2-dev

@@ -1,5 +1,3 @@
-Configure miss: clang option to accept ISO C89
-Configure miss: if clang static flag -static works
 Configure miss: dld_link in -ldld
 Configure miss: _ prefix in compiled symbols
 Configure miss: sys/dl.h
@@ -27,9 +25,4 @@ Configure miss: libiconv_open in -liconv
 Configure miss: ncurses/ncurses.h usability
 Configure miss: ncurses/ncurses.h presence
 Configure miss: ncurses/ncurses.h
-Configure miss: clang option to accept ISO C89
-Configure miss: if clang static flag -static works
-Configure miss: if clang++ static flag -static works
 Configure miss: supported LLVM version
-Configure miss: clang option to accept ISO C89
-Configure miss: if clang static flag -static works
