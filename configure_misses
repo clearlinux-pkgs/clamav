@@ -19,7 +19,33 @@ Configure miss: CHECK
 Configure miss: check.h usability
 Configure miss: check.h presence
 Configure miss: check.h
-Configure miss: libjson installation... checking for pcre2-config
+Configure miss: dn_expand in std libs
+Configure miss: libiconv_open in -liconv
+Configure miss: ncurses/ncurses.h usability
+Configure miss: ncurses/ncurses.h presence
+Configure miss: ncurses/ncurses.h
+Configure miss: supported LLVM version
+Configure miss: dld_link in -ldld
+Configure miss: _ prefix in compiled symbols
+Configure miss: sys/dl.h
+Configure miss: dld.h
+Configure miss: mach-o/dyld.h
+Configure miss: sys/int_types.h usability
+Configure miss: sys/int_types.h presence
+Configure miss: sys/int_types.h
+Configure miss: sys/inttypes.h usability
+Configure miss: sys/inttypes.h presence
+Configure miss: sys/inttypes.h
+Configure miss: ndir.h usability
+Configure miss: ndir.h presence
+Configure miss: ndir.h
+Configure miss: bind in -lsocket
+Configure miss: enable_extended_FILE_stdio
+Configure miss: sysctlbyname
+Configure miss: CHECK
+Configure miss: check.h usability
+Configure miss: check.h presence
+Configure miss: check.h
 Configure miss: dn_expand in std libs
 Configure miss: libiconv_open in -liconv
 Configure miss: ncurses/ncurses.h usability

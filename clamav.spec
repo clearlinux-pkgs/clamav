@@ -6,7 +6,7 @@
 #
 Name     : clamav
 Version  : 0.100.2
-Release  : 8
+Release  : 9
 URL      : https://www.clamav.net/downloads/production/clamav-0.100.2.tar.gz
 Source0  : https://www.clamav.net/downloads/production/clamav-0.100.2.tar.gz
 Source99 : https://www.clamav.net/downloads/production/clamav-0.100.2.tar.gz.sig
@@ -28,6 +28,7 @@ BuildRequires : libxml2-dev
 BuildRequires : llvm-dev
 BuildRequires : openssl-dev
 BuildRequires : pcre-dev
+BuildRequires : pcre2-dev
 BuildRequires : pkgconfig(ncurses)
 BuildRequires : pkgconfig(ncursesw)
 BuildRequires : pkgconfig(systemd)
@@ -97,25 +98,38 @@ services components for the clamav package.
 
 %prep
 %setup -q -n clamav-0.100.2
+pushd ..
+cp -a clamav-0.100.2 buildavx2
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1542481484
+export SOURCE_DATE_EPOCH=1542481838
 %configure --disable-static
 make  %{?_smp_mflags}
 
+unset PKG_CONFIG_PATH
+pushd ../buildavx2/
+export CFLAGS="$CFLAGS -m64 -march=haswell"
+export CXXFLAGS="$CXXFLAGS -m64 -march=haswell"
+export LDFLAGS="$LDFLAGS -m64 -march=haswell"
+%configure --disable-static
+make  %{?_smp_mflags}
+popd
 %check
 export LANG=C
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
+cd ../buildavx2;
+make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1542481484
+export SOURCE_DATE_EPOCH=1542481838
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/clamav
 cp COPYING %{buildroot}/usr/share/package-licenses/clamav/COPYING
@@ -137,6 +151,9 @@ cp win32/3rdparty/bzip2/LICENSE %{buildroot}/usr/share/package-licenses/clamav/w
 cp win32/3rdparty/pthreads/COPYING %{buildroot}/usr/share/package-licenses/clamav/win32_3rdparty_pthreads_COPYING
 cp win32/3rdparty/pthreads/COPYING.LIB %{buildroot}/usr/share/package-licenses/clamav/win32_3rdparty_pthreads_COPYING.LIB
 cp win32/3rdparty/zlib/contrib/dotzlib/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/clamav/win32_3rdparty_zlib_contrib_dotzlib_LICENSE_1_0.txt
+pushd ../buildavx2/
+%make_install_avx2
+popd
 %make_install
 
 %files
@@ -152,11 +169,22 @@ cp win32/3rdparty/zlib/contrib/dotzlib/LICENSE_1_0.txt %{buildroot}/usr/share/pa
 /usr/bin/clamdtop
 /usr/bin/clamscan
 /usr/bin/freshclam
+/usr/bin/haswell/clambc
+/usr/bin/haswell/clamconf
+/usr/bin/haswell/clamd
+/usr/bin/haswell/clamdscan
+/usr/bin/haswell/clamdtop
+/usr/bin/haswell/clamscan
+/usr/bin/haswell/freshclam
+/usr/bin/haswell/sigtool
 /usr/bin/sigtool
 
 %files dev
 %defattr(-,root,root,-)
 /usr/include/*.h
+/usr/lib64/haswell/libclamav.so
+/usr/lib64/haswell/libclammspack.so
+/usr/lib64/haswell/libclamunrar.so
 /usr/lib64/libclamav.so
 /usr/lib64/libclammspack.so
 /usr/lib64/libclamunrar.so
@@ -166,6 +194,12 @@ cp win32/3rdparty/zlib/contrib/dotzlib/LICENSE_1_0.txt %{buildroot}/usr/share/pa
 
 %files lib
 %defattr(-,root,root,-)
+/usr/lib64/haswell/libclamav.so.7
+/usr/lib64/haswell/libclamav.so.7.1.1
+/usr/lib64/haswell/libclammspack.so.0
+/usr/lib64/haswell/libclammspack.so.0.1.0
+/usr/lib64/haswell/libclamunrar.so.7
+/usr/lib64/haswell/libclamunrar.so.7.1.1
 /usr/lib64/libclamav.so.7
 /usr/lib64/libclamav.so.7.1.1
 /usr/lib64/libclammspack.so.0
