@@ -1,0 +1,192 @@
+From 034d7f83c73314822344d55e964ffedcf5ffab90 Mon Sep 17 00:00:00 2001
+From: Auke Kok <auke-jan.h.kok@intel.com>
+Date: Mon, 19 Nov 2018 10:03:55 -0800
+Subject: [PATCH] Stateless enablement.
+
+- Enable syslogging by default
+- Use builtin confs as default files
+- use /usr/share/defaults/clamav as default folder
+---
+ clamav-milter/clamav-milter.c | 10 +++++++++-
+ clamd/clamd.c                 | 10 ++++++++--
+ etc/clamav-milter.conf.sample |  7 -------
+ etc/clamd.conf.sample         |  8 --------
+ etc/freshclam.conf.sample     |  8 --------
+ freshclam/freshclam.c         | 14 ++++++++++++--
+ platform.h.in                 |  4 ++++
+ shared/optparser.c            |  8 ++++----
+ 8 files changed, 37 insertions(+), 32 deletions(-)
+
+diff --git a/clamav-milter/clamav-milter.c b/clamav-milter/clamav-milter.c
+index c8e3f0a..c3a585d 100644
+--- a/clamav-milter/clamav-milter.c
++++ b/clamav-milter/clamav-milter.c
+@@ -78,6 +78,7 @@ static void milter_exit(int sig) {
+ 
+ int main(int argc, char **argv) {
+     char *my_socket, *pt;
++    const char *cfgfile;
+     const struct optstruct *opt;
+     time_t currtime;
+     mode_t umsk;
+@@ -149,7 +150,14 @@ int main(int argc, char **argv) {
+ 	return 0;
+     }
+ 
+-    pt = strdup(optget(opts, "config-file")->strarg);
++    cfgfile = optget(opts, "config-file")->strarg;
++    if (cfgfile) {
++        pt = strdup(cfgfile);
++    } else if (access(CONFDIR_MILTER, R_OK) == 0) {
++        pt = strdup(CONFDIR_MILTER);
++    } else {
++        pt = strdup(DEFAULT_CONFDIR_MILTER);
++    }
+     if (pt == NULL) {
+ 	printf("Unable to allocate memory for config file\n");
+ 	return 1;
+diff --git a/clamd/clamd.c b/clamd/clamd.c
+index 3d09254..24a14de 100644
+--- a/clamd/clamd.c
++++ b/clamd/clamd.c
+@@ -194,12 +194,18 @@ int main(int argc, char **argv)
+ 
+     /* parse the config file */
+     cfgfile = optget(opts, "config-file")->strarg;
+-    pt = strdup(cfgfile);
++    if (cfgfile) {
++        pt = strdup(cfgfile);
++    } else if (access(CONFDIR_CLAMD, R_OK) == 0) {
++        pt = strdup(CONFDIR_CLAMD);
++    } else {
++        pt = strdup(DEFAULT_CONFDIR_CLAMD);
++    }
+     if (pt == NULL) {
+ 	fprintf(stderr, "ERROR: Unable to allocate memory for config file\n");
+ 	return 1;
+     }
+-    if((opts = optparse(cfgfile, 0, NULL, 1, OPT_CLAMD, 0, opts)) == NULL) {
++    if((opts = optparse(pt, 0, NULL, 1, OPT_CLAMD, 0, opts)) == NULL) {
+         fprintf(stderr, "ERROR: Can't open/parse the config file %s\n", pt);
+         free(pt);
+         return 1;
+diff --git a/etc/clamav-milter.conf.sample b/etc/clamav-milter.conf.sample
+index c61012c..c84ba22 100644
+--- a/etc/clamav-milter.conf.sample
++++ b/etc/clamav-milter.conf.sample
+@@ -1,10 +1,3 @@
+-##
+-## Example config file for clamav-milter
+-##
+-
+-# Comment or remove the line below.
+-Example
+-
+ 
+ ##
+ ## Main options
+diff --git a/etc/clamd.conf.sample b/etc/clamd.conf.sample
+index dd3d841..b78d69a 100644
+--- a/etc/clamd.conf.sample
++++ b/etc/clamd.conf.sample
+@@ -1,11 +1,3 @@
+-##
+-## Example config file for the Clam AV daemon
+-## Please read the clamd.conf(5) manual before editing this file.
+-##
+-
+-
+-# Comment or remove the line below.
+-Example
+ 
+ # Uncomment this option to enable logging.
+ # LogFile must be writable for the user running daemon.
+diff --git a/etc/freshclam.conf.sample b/etc/freshclam.conf.sample
+index 5dacc20..10b4cae 100644
+--- a/etc/freshclam.conf.sample
++++ b/etc/freshclam.conf.sample
+@@ -1,11 +1,3 @@
+-##
+-## Example config file for freshclam
+-## Please read the freshclam.conf(5) manual before editing this file.
+-##
+-
+-
+-# Comment or remove the line below.
+-Example
+ 
+ # Path to the database directory.
+ # WARNING: It must match clamd.conf's directive!
+diff --git a/freshclam/freshclam.c b/freshclam/freshclam.c
+index f954c5a..97f3b20 100644
+--- a/freshclam/freshclam.c
++++ b/freshclam/freshclam.c
+@@ -323,9 +323,19 @@ main (int argc, char **argv)
+ 
+     /* parse the config file */
+     cfgfile = optget (opts, "config-file")->strarg;
+-    pt = strdup (cfgfile);
++    if (cfgfile) {
++        pt = strdup(cfgfile);
++    } else if (access(CONFDIR_FRESHCLAM, R_OK) == 0) {
++        pt = strdup(CONFDIR_FRESHCLAM);
++    } else {
++        pt = strdup(DEFAULT_CONFDIR_FRESHCLAM);
++    }
++    if (pt == NULL) {
++	fprintf(stderr, "ERROR: Unable to allocate memory for config file\n");
++	return 1;
++    }
+     if ((opts =
+-         optparse (cfgfile, 0, NULL, 1, OPT_FRESHCLAM, 0, opts)) == NULL)
++         optparse (pt, 0, NULL, 1, OPT_FRESHCLAM, 0, opts)) == NULL)
+     {
+         fprintf (stderr, "ERROR: Can't open/parse the config file %s\n", pt);
+         free (pt);
+diff --git a/platform.h.in b/platform.h.in
+index bddbf1b..ab68fe7 100644
+--- a/platform.h.in
++++ b/platform.h.in
+@@ -34,9 +34,13 @@ typedef	unsigned	int	in_addr_t;
+ #define PATHSEP "/"
+ #endif
+ 
++#define DEFAULT_CONFDIR "/usr/share/defaults/clamav"
+ #define CONFDIR_CLAMD CONFDIR PATHSEP "clamd.conf"
++#define DEFAULT_CONFDIR_CLAMD DEFAULT_CONFDIR PATHSEP "clamd.conf"
+ #define CONFDIR_FRESHCLAM CONFDIR PATHSEP "freshclam.conf"
++#define DEFAULT_CONFDIR_FRESHCLAM DEFAULT_CONFDIR PATHSEP "freshclam.conf"
+ #define CONFDIR_MILTER CONFDIR PATHSEP "clamav-milter.conf"
++#define DEFAULT_CONFDIR_MILTER DEFAULT_CONFDIR PATHSEP "clamav-milter.conf"
+ 
+ #define cli_to_utf8_maybe_alloc(x) (x)
+ #define cli_strdup_to_utf8(x) strdup(x)
+diff --git a/shared/optparser.c b/shared/optparser.c
+index b5a7208..c548e84 100644
+--- a/shared/optparser.c
++++ b/shared/optparser.c
+@@ -65,9 +65,9 @@ const struct clam_option __clam_options[] = {
+ 
+     /* cmdline only */
+     { NULL, "help", 'h', CLOPT_TYPE_BOOL, MATCH_BOOL, 0, NULL, 0, OPT_CLAMD | OPT_FRESHCLAM | OPT_CLAMSCAN | OPT_CLAMDSCAN | OPT_SIGTOOL | OPT_MILTER | OPT_CLAMCONF | OPT_CLAMDTOP | OPT_CLAMBC, "", "" },
+-    { NULL, "config-file", 'c', CLOPT_TYPE_STRING, NULL, 0, CONFDIR_CLAMD, FLAG_REQUIRED, OPT_CLAMD | OPT_CLAMDSCAN | OPT_CLAMDTOP, "", "" },
+-    { NULL, "config-file", 0, CLOPT_TYPE_STRING, NULL, 0, CONFDIR_FRESHCLAM, FLAG_REQUIRED, OPT_FRESHCLAM, "", "" },
+-    { NULL, "config-file", 'c', CLOPT_TYPE_STRING, NULL, 0, CONFDIR_MILTER, FLAG_REQUIRED, OPT_MILTER, "", "" },
++    { NULL, "config-file", 'c', CLOPT_TYPE_STRING, NULL, 0, NULL, FLAG_REQUIRED, OPT_CLAMD | OPT_CLAMDSCAN | OPT_CLAMDTOP, "", "" },
++    { NULL, "config-file", 0, CLOPT_TYPE_STRING, NULL, 0, NULL, FLAG_REQUIRED, OPT_FRESHCLAM, "", "" },
++    { NULL, "config-file", 'c', CLOPT_TYPE_STRING, NULL, 0, NULL, FLAG_REQUIRED, OPT_MILTER, "", "" },
+     { NULL, "version", 'V', CLOPT_TYPE_BOOL, MATCH_BOOL, 0, NULL, 0, OPT_CLAMD | OPT_FRESHCLAM | OPT_CLAMSCAN | OPT_CLAMDSCAN | OPT_SIGTOOL | OPT_MILTER | OPT_CLAMCONF | OPT_CLAMDTOP | OPT_CLAMBC, "", "" },
+     { NULL, "debug", 0, CLOPT_TYPE_BOOL, MATCH_BOOL, 0, NULL, 0, OPT_CLAMBC | OPT_CLAMD | OPT_FRESHCLAM | OPT_CLAMSCAN | OPT_SIGTOOL, "", "" },
+     { NULL, "gen-json", 0, CLOPT_TYPE_BOOL, MATCH_BOOL, 0, NULL, 0, OPT_CLAMD | OPT_CLAMSCAN | OPT_SIGTOOL, "", "" },
+@@ -202,7 +202,7 @@ const struct clam_option __clam_options[] = {
+ 
+     { "LogClean", NULL, 0, CLOPT_TYPE_BOOL, MATCH_BOOL, 0, NULL, 0, OPT_CLAMD, "Log all clean files.\nUseful in debugging but drastically increases the log size.", "yes" },
+ 
+-    { "LogSyslog", NULL, 0, CLOPT_TYPE_BOOL, MATCH_BOOL, 0, NULL, 0, OPT_CLAMD | OPT_FRESHCLAM | OPT_MILTER, "Use the system logger (can work together with LogFile).", "yes" },
++    { "LogSyslog", NULL, 0, CLOPT_TYPE_BOOL, MATCH_BOOL, 1, NULL, 0, OPT_CLAMD | OPT_FRESHCLAM | OPT_MILTER, "Use the system logger (can work together with LogFile).", "yes" },
+ 
+     { "LogFacility", NULL, 0, CLOPT_TYPE_STRING, NULL, -1, "LOG_LOCAL6", FLAG_REQUIRED, OPT_CLAMD | OPT_FRESHCLAM | OPT_MILTER, "Type of syslog messages.\nPlease refer to 'man syslog' for the facility names.", "LOG_MAIL" },
+ 
+-- 
+2.19.1
+

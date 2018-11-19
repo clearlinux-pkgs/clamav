@@ -6,14 +6,17 @@
 #
 Name     : clamav
 Version  : 0.100.2
-Release  : 9
+Release  : 15
 URL      : https://www.clamav.net/downloads/production/clamav-0.100.2.tar.gz
 Source0  : https://www.clamav.net/downloads/production/clamav-0.100.2.tar.gz
+Source1  : clamav.tmpfiles
 Source99 : https://www.clamav.net/downloads/production/clamav-0.100.2.tar.gz.sig
 Summary  : A GPL virus scanner
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause BSL-1.0 GPL-2.0 LGPL-2.1 MIT NCSA NTP Zlib bzip2-1.0.6
 Requires: clamav-bin = %{version}-%{release}
+Requires: clamav-config = %{version}-%{release}
+Requires: clamav-data = %{version}-%{release}
 Requires: clamav-lib = %{version}-%{release}
 Requires: clamav-license = %{version}-%{release}
 Requires: clamav-man = %{version}-%{release}
@@ -35,6 +38,7 @@ BuildRequires : pkgconfig(systemd)
 BuildRequires : systemd-dev
 BuildRequires : xz-dev
 BuildRequires : zlib-dev
+Patch1: 0001-Stateless-enablement.patch
 
 %description
 clam.exe is an extremely small (544 bytes!) MZ+PE executable that prints
@@ -44,6 +48,8 @@ based mail scanner.
 %package bin
 Summary: bin components for the clamav package.
 Group: Binaries
+Requires: clamav-data = %{version}-%{release}
+Requires: clamav-config = %{version}-%{release}
 Requires: clamav-license = %{version}-%{release}
 Requires: clamav-man = %{version}-%{release}
 Requires: clamav-services = %{version}-%{release}
@@ -52,11 +58,28 @@ Requires: clamav-services = %{version}-%{release}
 bin components for the clamav package.
 
 
+%package config
+Summary: config components for the clamav package.
+Group: Default
+
+%description config
+config components for the clamav package.
+
+
+%package data
+Summary: data components for the clamav package.
+Group: Data
+
+%description data
+data components for the clamav package.
+
+
 %package dev
 Summary: dev components for the clamav package.
 Group: Development
 Requires: clamav-lib = %{version}-%{release}
 Requires: clamav-bin = %{version}-%{release}
+Requires: clamav-data = %{version}-%{release}
 Provides: clamav-devel = %{version}-%{release}
 
 %description dev
@@ -66,6 +89,7 @@ dev components for the clamav package.
 %package lib
 Summary: lib components for the clamav package.
 Group: Libraries
+Requires: clamav-data = %{version}-%{release}
 Requires: clamav-license = %{version}-%{release}
 
 %description lib
@@ -98,6 +122,7 @@ services components for the clamav package.
 
 %prep
 %setup -q -n clamav-0.100.2
+%patch1 -p1
 pushd ..
 cp -a clamav-0.100.2 buildavx2
 popd
@@ -107,8 +132,12 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1542481838
-%configure --disable-static
+export SOURCE_DATE_EPOCH=1542656468
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -std=gnu++98"
+%configure --disable-static --with-dbdir=/var/lib/clamav
 make  %{?_smp_mflags}
 
 unset PKG_CONFIG_PATH
@@ -116,7 +145,7 @@ pushd ../buildavx2/
 export CFLAGS="$CFLAGS -m64 -march=haswell"
 export CXXFLAGS="$CXXFLAGS -m64 -march=haswell"
 export LDFLAGS="$LDFLAGS -m64 -march=haswell"
-%configure --disable-static
+%configure --disable-static --with-dbdir=/var/lib/clamav
 make  %{?_smp_mflags}
 popd
 %check
@@ -129,7 +158,7 @@ cd ../buildavx2;
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1542481838
+export SOURCE_DATE_EPOCH=1542656468
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/clamav
 cp COPYING %{buildroot}/usr/share/package-licenses/clamav/COPYING
@@ -155,6 +184,13 @@ pushd ../buildavx2/
 %make_install_avx2
 popd
 %make_install
+mkdir -p %{buildroot}/usr/lib/tmpfiles.d
+install -m 0644 %{SOURCE1} %{buildroot}/usr/lib/tmpfiles.d/clamav.conf
+## install_append content
+for sample in clamav-milter.conf clamd.conf freshclam.conf; do
+install -D -m0644 etc/$sample.sample %{buildroot}/usr/share/defaults/clamav/$sample
+done
+## install_append end
 
 %files
 %defattr(-,root,root,-)
@@ -178,6 +214,16 @@ popd
 /usr/bin/haswell/freshclam
 /usr/bin/haswell/sigtool
 /usr/bin/sigtool
+
+%files config
+%defattr(-,root,root,-)
+/usr/lib/tmpfiles.d/clamav.conf
+
+%files data
+%defattr(-,root,root,-)
+/usr/share/defaults/clamav/clamav-milter.conf
+/usr/share/defaults/clamav/clamd.conf
+/usr/share/defaults/clamav/freshclam.conf
 
 %files dev
 %defattr(-,root,root,-)

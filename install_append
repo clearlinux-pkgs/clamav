@@ -1,0 +1,3 @@
+for sample in clamav-milter.conf clamd.conf freshclam.conf; do
+	install -D -m0644 etc/$sample.sample %{buildroot}/usr/share/defaults/clamav/$sample
+done
