@@ -5,13 +5,13 @@
 # Source0 file verified with key 0xF13F9E16BCA5BFAD (research@sourcefire.com)
 #
 Name     : clamav
-Version  : 0.100.2
-Release  : 16
-URL      : https://www.clamav.net/downloads/production/clamav-0.100.2.tar.gz
-Source0  : https://www.clamav.net/downloads/production/clamav-0.100.2.tar.gz
+Version  : 0.101.0
+Release  : 17
+URL      : https://www.clamav.net/downloads/production/clamav-0.101.0.tar.gz
+Source0  : https://www.clamav.net/downloads/production/clamav-0.101.0.tar.gz
 Source1  : clamav.tmpfiles
-Source99 : https://www.clamav.net/downloads/production/clamav-0.100.2.tar.gz.sig
-Summary  : A GPL virus scanner
+Source99 : https://www.clamav.net/downloads/production/clamav-0.101.0.tar.gz.sig
+Summary  : Library providing XML and HTML support
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause BSL-1.0 GPL-2.0 LGPL-2.1 MIT NCSA NTP Zlib bzip2-1.0.6
 Requires: clamav-bin = %{version}-%{release}
@@ -30,20 +30,28 @@ BuildRequires : flex
 BuildRequires : libxml2-dev
 BuildRequires : llvm-dev
 BuildRequires : openssl-dev
-BuildRequires : pcre-dev
 BuildRequires : pcre2-dev
+BuildRequires : pkgconfig(icu-i18n)
+BuildRequires : pkgconfig(liblzma)
 BuildRequires : pkgconfig(ncurses)
 BuildRequires : pkgconfig(ncursesw)
 BuildRequires : pkgconfig(systemd)
+BuildRequires : pkgconfig(zlib)
 BuildRequires : systemd-dev
 BuildRequires : xz-dev
 BuildRequires : zlib-dev
 Patch1: 0001-Stateless-enablement.patch
 
 %description
-clam.exe is an extremely small (544 bytes!) MZ+PE executable that prints
-a nice message :-) You can use it to test attachment scanning in your ClamAV
-based mail scanner.
+This library allows to manipulate XML files. It includes support
+to read, modify and write XML and HTML files. There is DTDs support
+this includes parsing and validation even with complex DtDs, either
+at parse time or later once the document has been modified. The output
+can be a simple SAX stream or and in-memory DOM like representations.
+In this case one can use the built-in XPath and XPointer implementation
+to select sub nodes or ranges. A flexible Input/Output mechanism is
+available, with existing HTTP and FTP modules and combined to an
+URI library.
 
 %package bin
 Summary: bin components for the clamav package.
@@ -121,10 +129,10 @@ services components for the clamav package.
 
 
 %prep
-%setup -q -n clamav-0.100.2
+%setup -q -n clamav-0.101.0
 %patch1 -p1
 pushd ..
-cp -a clamav-0.100.2 buildavx2
+cp -a clamav-0.101.0 buildavx2
 popd
 
 %build
@@ -132,7 +140,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1543268847
+export SOURCE_DATE_EPOCH=1544716355
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
@@ -158,7 +166,7 @@ cd ../buildavx2;
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1543268847
+export SOURCE_DATE_EPOCH=1544716355
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/clamav
 cp COPYING %{buildroot}/usr/share/package-licenses/clamav/COPYING
@@ -173,10 +181,12 @@ cp COPYING.regex %{buildroot}/usr/share/package-licenses/clamav/COPYING.regex
 cp COPYING.zlib %{buildroot}/usr/share/package-licenses/clamav/COPYING.zlib
 cp libclamav/c++/llvm/LICENSE.TXT %{buildroot}/usr/share/package-licenses/clamav/libclamav_c++_llvm_LICENSE.TXT
 cp libclamav/c++/llvm/autoconf/LICENSE.TXT %{buildroot}/usr/share/package-licenses/clamav/libclamav_c++_llvm_autoconf_LICENSE.TXT
-cp libclamav/libmspack-0.5alpha/COPYING.LIB %{buildroot}/usr/share/package-licenses/clamav/libclamav_libmspack-0.5alpha_COPYING.LIB
+cp libclammspack/COPYING.LIB %{buildroot}/usr/share/package-licenses/clamav/libclammspack_COPYING.LIB
 cp libltdl/COPYING.LIB %{buildroot}/usr/share/package-licenses/clamav/libltdl_COPYING.LIB
 cp unit_tests/input/COPYING %{buildroot}/usr/share/package-licenses/clamav/unit_tests_input_COPYING
 cp win32/3rdparty/bzip2/LICENSE %{buildroot}/usr/share/package-licenses/clamav/win32_3rdparty_bzip2_LICENSE
+cp win32/3rdparty/libxml2/COPYING %{buildroot}/usr/share/package-licenses/clamav/win32_3rdparty_libxml2_COPYING
+cp win32/3rdparty/libxml2/Copyright %{buildroot}/usr/share/package-licenses/clamav/win32_3rdparty_libxml2_Copyright
 cp win32/3rdparty/pthreads/COPYING %{buildroot}/usr/share/package-licenses/clamav/win32_3rdparty_pthreads_COPYING
 cp win32/3rdparty/pthreads/COPYING.LIB %{buildroot}/usr/share/package-licenses/clamav/win32_3rdparty_pthreads_COPYING.LIB
 cp win32/3rdparty/zlib/contrib/dotzlib/LICENSE_1_0.txt %{buildroot}/usr/share/package-licenses/clamav/win32_3rdparty_zlib_contrib_dotzlib_LICENSE_1_0.txt
@@ -236,24 +246,23 @@ done
 /usr/lib64/libclamunrar.so
 /usr/lib64/libclamunrar_iface.so
 /usr/lib64/pkgconfig/libclamav.pc
-/usr/lib64/pkgconfig/libclammspack.pc
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/haswell/libclamav.so.7
-/usr/lib64/haswell/libclamav.so.7.1.1
+/usr/lib64/haswell/libclamav.so.9
+/usr/lib64/haswell/libclamav.so.9.0.0
 /usr/lib64/haswell/libclammspack.so.0
 /usr/lib64/haswell/libclammspack.so.0.1.0
-/usr/lib64/haswell/libclamunrar.so.7
-/usr/lib64/haswell/libclamunrar.so.7.1.1
-/usr/lib64/libclamav.so.7
-/usr/lib64/libclamav.so.7.1.1
+/usr/lib64/haswell/libclamunrar.so.9
+/usr/lib64/haswell/libclamunrar.so.9.0.0
+/usr/lib64/libclamav.so.9
+/usr/lib64/libclamav.so.9.0.0
 /usr/lib64/libclammspack.so.0
 /usr/lib64/libclammspack.so.0.1.0
-/usr/lib64/libclamunrar.so.7
-/usr/lib64/libclamunrar.so.7.1.1
-/usr/lib64/libclamunrar_iface.so.7
-/usr/lib64/libclamunrar_iface.so.7.1.1
+/usr/lib64/libclamunrar.so.9
+/usr/lib64/libclamunrar.so.9.0.0
+/usr/lib64/libclamunrar_iface.so.9
+/usr/lib64/libclamunrar_iface.so.9.0.0
 
 %files license
 %defattr(0644,root,root,0755)
@@ -269,10 +278,12 @@ done
 /usr/share/package-licenses/clamav/COPYING.zlib
 /usr/share/package-licenses/clamav/libclamav_c++_llvm_LICENSE.TXT
 /usr/share/package-licenses/clamav/libclamav_c++_llvm_autoconf_LICENSE.TXT
-/usr/share/package-licenses/clamav/libclamav_libmspack-0.5alpha_COPYING.LIB
+/usr/share/package-licenses/clamav/libclammspack_COPYING.LIB
 /usr/share/package-licenses/clamav/libltdl_COPYING.LIB
 /usr/share/package-licenses/clamav/unit_tests_input_COPYING
 /usr/share/package-licenses/clamav/win32_3rdparty_bzip2_LICENSE
+/usr/share/package-licenses/clamav/win32_3rdparty_libxml2_COPYING
+/usr/share/package-licenses/clamav/win32_3rdparty_libxml2_Copyright
 /usr/share/package-licenses/clamav/win32_3rdparty_pthreads_COPYING
 /usr/share/package-licenses/clamav/win32_3rdparty_pthreads_COPYING.LIB
 /usr/share/package-licenses/clamav/win32_3rdparty_zlib_contrib_dotzlib_LICENSE_1_0.txt
