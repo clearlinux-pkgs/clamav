@@ -1,7 +1,8 @@
-0.101.0
+0.101.1
 bison
 bzip2-dev
 check
+curl-dev
 flex
 llvm-dev
 pcre-dev

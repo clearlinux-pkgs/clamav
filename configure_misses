@@ -24,6 +24,7 @@ Configure miss: libiconv_open in -liconv
 Configure miss: ncurses/ncurses.h usability
 Configure miss: ncurses/ncurses.h presence
 Configure miss: ncurses/ncurses.h
+Configure miss: curl_easy_init in -lcurl
 Configure miss: supported LLVM version
 Configure miss: dld_link in -ldld
 Configure miss: _ prefix in compiled symbols
@@ -51,4 +52,5 @@ Configure miss: libiconv_open in -liconv
 Configure miss: ncurses/ncurses.h usability
 Configure miss: ncurses/ncurses.h presence
 Configure miss: ncurses/ncurses.h
+Configure miss: curl_easy_init in -lcurl
 Configure miss: supported LLVM version

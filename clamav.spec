@@ -5,13 +5,13 @@
 # Source0 file verified with key 0xF13F9E16BCA5BFAD (research@sourcefire.com)
 #
 Name     : clamav
-Version  : 0.101.0
-Release  : 17
-URL      : https://www.clamav.net/downloads/production/clamav-0.101.0.tar.gz
-Source0  : https://www.clamav.net/downloads/production/clamav-0.101.0.tar.gz
+Version  : 0.101.1
+Release  : 18
+URL      : https://www.clamav.net/downloads/production/clamav-0.101.1.tar.gz
+Source0  : https://www.clamav.net/downloads/production/clamav-0.101.1.tar.gz
 Source1  : clamav.tmpfiles
-Source99 : https://www.clamav.net/downloads/production/clamav-0.101.0.tar.gz.sig
-Summary  : Library providing XML and HTML support
+Source99 : https://www.clamav.net/downloads/production/clamav-0.101.1.tar.gz.sig
+Summary  : Anti-virus toolkit for Unix
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause BSL-1.0 GPL-2.0 LGPL-2.1 MIT NCSA NTP Zlib bzip2-1.0.6
 Requires: clamav-bin = %{version}-%{release}
@@ -26,6 +26,7 @@ BuildRequires : buildreq-cmake
 BuildRequires : buildreq-distutils3
 BuildRequires : bzip2-dev
 BuildRequires : check
+BuildRequires : curl-dev
 BuildRequires : flex
 BuildRequires : libxml2-dev
 BuildRequires : llvm-dev
@@ -129,10 +130,10 @@ services components for the clamav package.
 
 
 %prep
-%setup -q -n clamav-0.101.0
+%setup -q -n clamav-0.101.1
 %patch1 -p1
 pushd ..
-cp -a clamav-0.101.0 buildavx2
+cp -a clamav-0.101.1 buildavx2
 popd
 
 %build
@@ -140,7 +141,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1544716355
+export SOURCE_DATE_EPOCH=1546902017
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
@@ -166,7 +167,7 @@ cd ../buildavx2;
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1544716355
+export SOURCE_DATE_EPOCH=1546902017
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/clamav
 cp COPYING %{buildroot}/usr/share/package-licenses/clamav/COPYING
@@ -250,19 +251,19 @@ done
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/haswell/libclamav.so.9
-/usr/lib64/haswell/libclamav.so.9.0.0
+/usr/lib64/haswell/libclamav.so.9.0.1
 /usr/lib64/haswell/libclammspack.so.0
 /usr/lib64/haswell/libclammspack.so.0.1.0
 /usr/lib64/haswell/libclamunrar.so.9
-/usr/lib64/haswell/libclamunrar.so.9.0.0
+/usr/lib64/haswell/libclamunrar.so.9.0.1
 /usr/lib64/libclamav.so.9
-/usr/lib64/libclamav.so.9.0.0
+/usr/lib64/libclamav.so.9.0.1
 /usr/lib64/libclammspack.so.0
 /usr/lib64/libclammspack.so.0.1.0
 /usr/lib64/libclamunrar.so.9
-/usr/lib64/libclamunrar.so.9.0.0
+/usr/lib64/libclamunrar.so.9.0.1
 /usr/lib64/libclamunrar_iface.so.9
-/usr/lib64/libclamunrar_iface.so.9.0.0
+/usr/lib64/libclamunrar_iface.so.9.0.1
 
 %files license
 %defattr(0644,root,root,0755)
