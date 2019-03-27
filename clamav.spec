@@ -6,7 +6,7 @@
 #
 Name     : clamav
 Version  : 0.101.2
-Release  : 19
+Release  : 20
 URL      : https://www.clamav.net/downloads/production/clamav-0.101.2.tar.gz
 Source0  : https://www.clamav.net/downloads/production/clamav-0.101.2.tar.gz
 Source1  : clamav.tmpfiles
@@ -31,6 +31,7 @@ BuildRequires : flex
 BuildRequires : libxml2-dev
 BuildRequires : llvm-dev
 BuildRequires : openssl-dev
+BuildRequires : pcre-dev
 BuildRequires : pcre2-dev
 BuildRequires : pkgconfig(icu-i18n)
 BuildRequires : pkgconfig(liblzma)
@@ -141,7 +142,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1553650167
+export SOURCE_DATE_EPOCH=1553651017
 export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
 export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
@@ -167,7 +168,7 @@ cd ../buildavx2;
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1553650167
+export SOURCE_DATE_EPOCH=1553651017
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/clamav
 cp COPYING %{buildroot}/usr/share/package-licenses/clamav/COPYING
