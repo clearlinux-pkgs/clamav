@@ -13,6 +13,7 @@ Configure miss: ndir.h usability
 Configure miss: ndir.h presence
 Configure miss: ndir.h
 Configure miss: bind in -lsocket
+Configure miss: strnstr
 Configure miss: enable_extended_FILE_stdio
 Configure miss: sysctlbyname
 Configure miss: CHECK
@@ -41,6 +42,7 @@ Configure miss: ndir.h usability
 Configure miss: ndir.h presence
 Configure miss: ndir.h
 Configure miss: bind in -lsocket
+Configure miss: strnstr
 Configure miss: enable_extended_FILE_stdio
 Configure miss: sysctlbyname
 Configure miss: CHECK

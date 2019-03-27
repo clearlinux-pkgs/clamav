@@ -138,6 +138,7 @@ libclamav.so.9:cli_disasm_one
 libclamav.so.9:cli_errmsg
 libclamav.so.9:cli_filecopy
 libclamav.so.9:cli_fmap_scandesc
+libclamav.so.9:cli_free_vba_project
 libclamav.so.9:cli_ftw
 libclamav.so.9:cli_genhash_pe
 libclamav.so.9:cli_gentemp
@@ -177,6 +178,7 @@ libclamav.so.9:cli_regexec
 libclamav.so.9:cli_regfree
 libclamav.so.9:cli_rmdirs
 libclamav.so.9:cli_rndnum
+libclamav.so.9:cli_sanitize_filepath
 libclamav.so.9:cli_scanbuff
 libclamav.so.9:cli_sigopts_handler
 libclamav.so.9:cli_sigperf_events_destroy
@@ -187,6 +189,7 @@ libclamav.so.9:cli_strdup
 libclamav.so.9:cli_strerror
 libclamav.so.9:cli_strlcat
 libclamav.so.9:cli_strlcpy
+libclamav.so.9:cli_strnstr
 libclamav.so.9:cli_strrcpy
 libclamav.so.9:cli_strtok
 libclamav.so.9:cli_strtokbuf
