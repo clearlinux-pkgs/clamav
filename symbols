@@ -189,7 +189,6 @@ libclamav.so.9:cli_strdup
 libclamav.so.9:cli_strerror
 libclamav.so.9:cli_strlcat
 libclamav.so.9:cli_strlcpy
-libclamav.so.9:cli_strnstr
 libclamav.so.9:cli_strrcpy
 libclamav.so.9:cli_strtok
 libclamav.so.9:cli_strtokbuf

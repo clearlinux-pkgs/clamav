@@ -5,12 +5,12 @@
 # Source0 file verified with key 0xF13F9E16BCA5BFAD (research@sourcefire.com)
 #
 Name     : clamav
-Version  : 0.101.2
-Release  : 20
-URL      : https://www.clamav.net/downloads/production/clamav-0.101.2.tar.gz
-Source0  : https://www.clamav.net/downloads/production/clamav-0.101.2.tar.gz
+Version  : 0.101.3
+Release  : 21
+URL      : https://www.clamav.net/downloads/production/clamav-0.101.3.tar.gz
+Source0  : https://www.clamav.net/downloads/production/clamav-0.101.3.tar.gz
 Source1  : clamav.tmpfiles
-Source99 : https://www.clamav.net/downloads/production/clamav-0.101.2.tar.gz.sig
+Source2 : https://www.clamav.net/downloads/production/clamav-0.101.3.tar.gz.sig
 Summary  : Anti-virus toolkit for Unix
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause BSL-1.0 GPL-2.0 LGPL-2.1 MIT NCSA NTP Zlib bzip2-1.0.6
@@ -31,7 +31,6 @@ BuildRequires : flex
 BuildRequires : libxml2-dev
 BuildRequires : llvm-dev
 BuildRequires : openssl-dev
-BuildRequires : pcre-dev
 BuildRequires : pcre2-dev
 BuildRequires : pkgconfig(icu-i18n)
 BuildRequires : pkgconfig(liblzma)
@@ -91,6 +90,7 @@ Requires: clamav-bin = %{version}-%{release}
 Requires: clamav-data = %{version}-%{release}
 Provides: clamav-devel = %{version}-%{release}
 Requires: clamav = %{version}-%{release}
+Requires: clamav = %{version}-%{release}
 
 %description dev
 dev components for the clamav package.
@@ -131,22 +131,26 @@ services components for the clamav package.
 
 
 %prep
-%setup -q -n clamav-0.101.2
+%setup -q -n clamav-0.101.3
 %patch1 -p1
 pushd ..
-cp -a clamav-0.101.2 buildavx2
+cp -a clamav-0.101.3 buildavx2
 popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1553651017
-export CFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export FFLAGS="$CFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
-export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -std=gnu++98"
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1565098183
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FCFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export FFLAGS="$CFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math "
+export CXXFLAGS="$CXXFLAGS -O3 -falign-functions=32 -ffat-lto-objects -flto=4 -fno-math-errno -fno-semantic-interposition -fno-trapping-math -std=gnu++98"
 %configure --disable-static --with-dbdir=/var/lib/clamav
 make  %{?_smp_mflags}
 
@@ -159,7 +163,7 @@ export LDFLAGS="$LDFLAGS -m64 -march=haswell"
 make  %{?_smp_mflags}
 popd
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
@@ -168,7 +172,7 @@ cd ../buildavx2;
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1553651017
+export SOURCE_DATE_EPOCH=1565098183
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/clamav
 cp COPYING %{buildroot}/usr/share/package-licenses/clamav/COPYING
