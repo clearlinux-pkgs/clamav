@@ -6,12 +6,12 @@
 #
 Name     : clamav
 Version  : 0.101.4
-Release  : 22
+Release  : 23
 URL      : https://www.clamav.net/downloads/production/clamav-0.101.4.tar.gz
 Source0  : https://www.clamav.net/downloads/production/clamav-0.101.4.tar.gz
 Source1  : clamav.tmpfiles
 Source2 : https://www.clamav.net/downloads/production/clamav-0.101.4.tar.gz.sig
-Summary  : Anti-virus toolkit for Unix
+Summary  : Library providing XML and HTML support
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause BSL-1.0 GPL-2.0 LGPL-2.1 MIT NCSA NTP Zlib bzip2-1.0.6
 Requires: clamav-bin = %{version}-%{release}
@@ -31,6 +31,7 @@ BuildRequires : flex
 BuildRequires : libxml2-dev
 BuildRequires : llvm-dev
 BuildRequires : openssl-dev
+BuildRequires : pcre-dev
 BuildRequires : pcre2-dev
 BuildRequires : pkgconfig(icu-i18n)
 BuildRequires : pkgconfig(liblzma)
@@ -90,7 +91,6 @@ Requires: clamav-bin = %{version}-%{release}
 Requires: clamav-data = %{version}-%{release}
 Provides: clamav-devel = %{version}-%{release}
 Requires: clamav = %{version}-%{release}
-Requires: clamav = %{version}-%{release}
 
 %description dev
 dev components for the clamav package.
@@ -142,8 +142,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1566433986
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1568067926
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -173,7 +172,7 @@ cd ../buildavx2;
 make VERBOSE=1 V=1 %{?_smp_mflags} check || :
 
 %install
-export SOURCE_DATE_EPOCH=1566433986
+export SOURCE_DATE_EPOCH=1568067926
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/clamav
 cp COPYING %{buildroot}/usr/share/package-licenses/clamav/COPYING
@@ -244,7 +243,8 @@ done
 
 %files dev
 %defattr(-,root,root,-)
-/usr/include/*.h
+/usr/include/clamav-types.h
+/usr/include/clamav.h
 /usr/lib64/haswell/libclamav.so
 /usr/lib64/haswell/libclammspack.so
 /usr/lib64/haswell/libclamunrar.so
