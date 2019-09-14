@@ -6,7 +6,7 @@
 #
 Name     : clamav
 Version  : 0.101.4
-Release  : 23
+Release  : 24
 URL      : https://www.clamav.net/downloads/production/clamav-0.101.4.tar.gz
 Source0  : https://www.clamav.net/downloads/production/clamav-0.101.4.tar.gz
 Source1  : clamav.tmpfiles
