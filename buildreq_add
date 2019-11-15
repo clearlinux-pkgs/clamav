@@ -1,7 +1,15 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
+bison
+bzip2-dev
+check
+curl-dev
+flex
 libxml2-dev
+llvm-dev
 openssl-dev
-zlib-dev
-xz-dev
 pcre2-dev
+pcre-dev
+xz-dev
+zlib-dev
+nghttp2-dev

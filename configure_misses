@@ -16,16 +16,15 @@ Configure miss: bind in -lsocket
 Configure miss: strnstr
 Configure miss: enable_extended_FILE_stdio
 Configure miss: sysctlbyname
-Configure miss: CHECK
-Configure miss: check.h usability
-Configure miss: check.h presence
-Configure miss: check.h
-Configure miss: dn_expand in std libs
-Configure miss: libiconv_open in -liconv
 Configure miss: ncurses/ncurses.h usability
 Configure miss: ncurses/ncurses.h presence
 Configure miss: ncurses/ncurses.h
-Configure miss: curl_easy_init in -lcurl
+Configure miss: localcharset.h usability
+Configure miss: localcharset.h presence
+Configure miss: localcharset.h
+Configure miss: locale_charset
+Configure miss: locale_charset in -lcharset
+Configure miss: dn_expand in std libs
 Configure miss: supported LLVM version
 Configure miss: dld_link in -ldld
 Configure miss: _ prefix in compiled symbols
@@ -45,14 +44,13 @@ Configure miss: bind in -lsocket
 Configure miss: strnstr
 Configure miss: enable_extended_FILE_stdio
 Configure miss: sysctlbyname
-Configure miss: CHECK
-Configure miss: check.h usability
-Configure miss: check.h presence
-Configure miss: check.h
-Configure miss: dn_expand in std libs
-Configure miss: libiconv_open in -liconv
 Configure miss: ncurses/ncurses.h usability
 Configure miss: ncurses/ncurses.h presence
 Configure miss: ncurses/ncurses.h
-Configure miss: curl_easy_init in -lcurl
+Configure miss: localcharset.h usability
+Configure miss: localcharset.h presence
+Configure miss: localcharset.h
+Configure miss: locale_charset
+Configure miss: locale_charset in -lcharset
+Configure miss: dn_expand in std libs
 Configure miss: supported LLVM version
