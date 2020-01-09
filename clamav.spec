@@ -6,7 +6,7 @@
 #
 Name     : clamav
 Version  : 0.102.1
-Release  : 26
+Release  : 27
 URL      : https://www.clamav.net/downloads/production/clamav-0.102.1.tar.gz
 Source0  : https://www.clamav.net/downloads/production/clamav-0.102.1.tar.gz
 Source1  : clamav.tmpfiles
