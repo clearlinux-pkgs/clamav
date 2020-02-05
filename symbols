@@ -146,6 +146,7 @@ libclamav.so.9:cli_free_vba_project
 libclamav.so.9:cli_ftw
 libclamav.so.9:cli_genhash_pe
 libclamav.so.9:cli_gentemp
+libclamav.so.9:cli_gentemp_with_prefix
 libclamav.so.9:cli_gentempfd
 libclamav.so.9:cli_gettmpdir
 libclamav.so.9:cli_hashfile
