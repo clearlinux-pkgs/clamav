@@ -313,3 +313,5 @@ libfreshclam.so.2:fc_update_databases
 libfreshclam.so.2:logg
 libfreshclam.so.2:logg_close
 libfreshclam.so.2:mprintf
+libfreshclam.so.2:optarg
+libfreshclam.so.2:optind
