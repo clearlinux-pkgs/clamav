@@ -103,6 +103,7 @@ libclamav.so.9:cli_ac_freedata
 libclamav.so.9:cli_ac_init
 libclamav.so.9:cli_ac_initdata
 libclamav.so.9:cli_ac_scanbuff
+libclamav.so.9:cli_basename
 libclamav.so.9:cli_bm_free
 libclamav.so.9:cli_bm_init
 libclamav.so.9:cli_bm_scanbuff
@@ -133,6 +134,7 @@ libclamav.so.9:cli_bytevalue_describe
 libclamav.so.9:cli_calloc
 libclamav.so.9:cli_check_auth_header
 libclamav.so.9:cli_chomp
+libclamav.so.9:cli_codepage_to_utf8
 libclamav.so.9:cli_ctime
 libclamav.so.9:cli_cvdunpack
 libclamav.so.9:cli_dbgmsg_internal
@@ -177,6 +179,7 @@ libclamav.so.9:cli_ppt_vba_read
 libclamav.so.9:cli_printcxxver
 libclamav.so.9:cli_readn
 libclamav.so.9:cli_realloc
+libclamav.so.9:cli_realpath
 libclamav.so.9:cli_regcomp
 libclamav.so.9:cli_regex2suffix
 libclamav.so.9:cli_regexec
