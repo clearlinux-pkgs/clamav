@@ -5,12 +5,12 @@
 # Source0 file verified with key 0xF13F9E16BCA5BFAD (research@sourcefire.com)
 #
 Name     : clamav
-Version  : 0.102.4
-Release  : 30
-URL      : https://www.clamav.net/downloads/production/clamav-0.102.4.tar.gz
-Source0  : https://www.clamav.net/downloads/production/clamav-0.102.4.tar.gz
+Version  : 0.103.0
+Release  : 31
+URL      : https://www.clamav.net/downloads/production/clamav-0.103.0.tar.gz
+Source0  : https://www.clamav.net/downloads/production/clamav-0.103.0.tar.gz
 Source1  : clamav.tmpfiles
-Source2  : https://www.clamav.net/downloads/production/clamav-0.102.4.tar.gz.sig
+Source2  : https://www.clamav.net/downloads/production/clamav-0.103.0.tar.gz.sig
 Summary  : A GPL virus scanner
 Group    : Development/Tools
 License  : Apache-2.0 BSD-2-Clause BSD-3-Clause GPL-2.0 LGPL-2.1 MIT NCSA NTP Zlib bzip2-1.0.6
@@ -131,11 +131,11 @@ services components for the clamav package.
 
 
 %prep
-%setup -q -n clamav-0.102.4
-cd %{_builddir}/clamav-0.102.4
+%setup -q -n clamav-0.103.0
+cd %{_builddir}/clamav-0.103.0
 %patch1 -p1
 pushd ..
-cp -a clamav-0.102.4 buildavx2
+cp -a clamav-0.103.0 buildavx2
 popd
 
 %build
@@ -143,7 +143,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1594939804
+export SOURCE_DATE_EPOCH=1611280299
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -174,29 +174,29 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check || :
+make %{?_smp_mflags} check || :
 cd ../buildavx2;
-make VERBOSE=1 V=1 %{?_smp_mflags} check || : || :
+make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1594939804
+export SOURCE_DATE_EPOCH=1611280299
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/clamav
-cp %{_builddir}/clamav-0.102.4/COPYING %{buildroot}/usr/share/package-licenses/clamav/9a3515c3da4762b6ddbe88f02755b6edc8ce7f15
-cp %{_builddir}/clamav-0.102.4/COPYING.LGPL %{buildroot}/usr/share/package-licenses/clamav/9a1929f4700d2407c70b507b3b2aaf6226a9543c
-cp %{_builddir}/clamav-0.102.4/COPYING.YARA %{buildroot}/usr/share/package-licenses/clamav/c9b166c9c918ac6f123f0c70778297eb118537bc
-cp %{_builddir}/clamav-0.102.4/COPYING.bzip2 %{buildroot}/usr/share/package-licenses/clamav/521256a2cd47b39b31811a5df9bb724662ae326e
-cp %{_builddir}/clamav-0.102.4/COPYING.file %{buildroot}/usr/share/package-licenses/clamav/6178fe3d7980af9da8d734c13c56599b6775a20b
-cp %{_builddir}/clamav-0.102.4/COPYING.getopt %{buildroot}/usr/share/package-licenses/clamav/a4b006d9829d39c162d3853cf45ef8aa2844615c
-cp %{_builddir}/clamav-0.102.4/COPYING.llvm %{buildroot}/usr/share/package-licenses/clamav/4bdc478d273e3e8c75dbafbce0dc50bb8abc3628
-cp %{_builddir}/clamav-0.102.4/COPYING.pcre %{buildroot}/usr/share/package-licenses/clamav/24c848a024de84cdf4f7db7e65d5102b329a43bd
-cp %{_builddir}/clamav-0.102.4/COPYING.regex %{buildroot}/usr/share/package-licenses/clamav/28f373b92a4e7883d7243dfc65bb6fc0c9ca167e
-cp %{_builddir}/clamav-0.102.4/COPYING.zlib %{buildroot}/usr/share/package-licenses/clamav/0e1e05a11f29e9060b21c3926ddf6e80d441ca37
-cp %{_builddir}/clamav-0.102.4/libclamav/c++/llvm/LICENSE.TXT %{buildroot}/usr/share/package-licenses/clamav/22b913e80d34b4b5eba70ee11d70f1f487d97348
-cp %{_builddir}/clamav-0.102.4/libclamav/c++/llvm/autoconf/LICENSE.TXT %{buildroot}/usr/share/package-licenses/clamav/7aecc4590c57a3f3a0735a7e339d8635938d330f
-cp %{_builddir}/clamav-0.102.4/libclammspack/COPYING.LIB %{buildroot}/usr/share/package-licenses/clamav/e60c2e780886f95df9c9ee36992b8edabec00bcc
-cp %{_builddir}/clamav-0.102.4/libltdl/COPYING.LIB %{buildroot}/usr/share/package-licenses/clamav/01a6b4bf79aca9b556822601186afab86e8c4fbf
-cp %{_builddir}/clamav-0.102.4/unit_tests/input/COPYING %{buildroot}/usr/share/package-licenses/clamav/dfac199a7539a404407098a2541b9482279f690d
+cp %{_builddir}/clamav-0.103.0/COPYING %{buildroot}/usr/share/package-licenses/clamav/9a3515c3da4762b6ddbe88f02755b6edc8ce7f15
+cp %{_builddir}/clamav-0.103.0/COPYING.LGPL %{buildroot}/usr/share/package-licenses/clamav/9a1929f4700d2407c70b507b3b2aaf6226a9543c
+cp %{_builddir}/clamav-0.103.0/COPYING.YARA %{buildroot}/usr/share/package-licenses/clamav/c9b166c9c918ac6f123f0c70778297eb118537bc
+cp %{_builddir}/clamav-0.103.0/COPYING.bzip2 %{buildroot}/usr/share/package-licenses/clamav/521256a2cd47b39b31811a5df9bb724662ae326e
+cp %{_builddir}/clamav-0.103.0/COPYING.file %{buildroot}/usr/share/package-licenses/clamav/6178fe3d7980af9da8d734c13c56599b6775a20b
+cp %{_builddir}/clamav-0.103.0/COPYING.getopt %{buildroot}/usr/share/package-licenses/clamav/a4b006d9829d39c162d3853cf45ef8aa2844615c
+cp %{_builddir}/clamav-0.103.0/COPYING.llvm %{buildroot}/usr/share/package-licenses/clamav/4bdc478d273e3e8c75dbafbce0dc50bb8abc3628
+cp %{_builddir}/clamav-0.103.0/COPYING.pcre %{buildroot}/usr/share/package-licenses/clamav/24c848a024de84cdf4f7db7e65d5102b329a43bd
+cp %{_builddir}/clamav-0.103.0/COPYING.regex %{buildroot}/usr/share/package-licenses/clamav/28f373b92a4e7883d7243dfc65bb6fc0c9ca167e
+cp %{_builddir}/clamav-0.103.0/COPYING.zlib %{buildroot}/usr/share/package-licenses/clamav/0e1e05a11f29e9060b21c3926ddf6e80d441ca37
+cp %{_builddir}/clamav-0.103.0/libclamav/c++/llvm/LICENSE.TXT %{buildroot}/usr/share/package-licenses/clamav/22b913e80d34b4b5eba70ee11d70f1f487d97348
+cp %{_builddir}/clamav-0.103.0/libclamav/c++/llvm/autoconf/LICENSE.TXT %{buildroot}/usr/share/package-licenses/clamav/7aecc4590c57a3f3a0735a7e339d8635938d330f
+cp %{_builddir}/clamav-0.103.0/libclammspack/COPYING.LIB %{buildroot}/usr/share/package-licenses/clamav/e60c2e780886f95df9c9ee36992b8edabec00bcc
+cp %{_builddir}/clamav-0.103.0/libltdl/COPYING.LIB %{buildroot}/usr/share/package-licenses/clamav/01a6b4bf79aca9b556822601186afab86e8c4fbf
+cp %{_builddir}/clamav-0.103.0/unit_tests/input/COPYING %{buildroot}/usr/share/package-licenses/clamav/dfac199a7539a404407098a2541b9482279f690d
 pushd ../buildavx2/
 %make_install_avx2
 popd
@@ -264,23 +264,23 @@ done
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/haswell/libclamav.so.9
-/usr/lib64/haswell/libclamav.so.9.0.4
+/usr/lib64/haswell/libclamav.so.9.0.5
 /usr/lib64/haswell/libclammspack.so.0
 /usr/lib64/haswell/libclammspack.so.0.1.0
 /usr/lib64/haswell/libclamunrar.so.9
-/usr/lib64/haswell/libclamunrar.so.9.0.4
+/usr/lib64/haswell/libclamunrar.so.9.0.5
 /usr/lib64/haswell/libfreshclam.so.2
-/usr/lib64/haswell/libfreshclam.so.2.0.0
+/usr/lib64/haswell/libfreshclam.so.2.0.1
 /usr/lib64/libclamav.so.9
-/usr/lib64/libclamav.so.9.0.4
+/usr/lib64/libclamav.so.9.0.5
 /usr/lib64/libclammspack.so.0
 /usr/lib64/libclammspack.so.0.1.0
 /usr/lib64/libclamunrar.so.9
-/usr/lib64/libclamunrar.so.9.0.4
+/usr/lib64/libclamunrar.so.9.0.5
 /usr/lib64/libclamunrar_iface.so.9
-/usr/lib64/libclamunrar_iface.so.9.0.4
+/usr/lib64/libclamunrar_iface.so.9.0.5
 /usr/lib64/libfreshclam.so.2
-/usr/lib64/libfreshclam.so.2.0.0
+/usr/lib64/libfreshclam.so.2.0.1
 
 %files license
 %defattr(0644,root,root,0755)
@@ -314,9 +314,11 @@ done
 /usr/share/man/man5/freshclam.conf.5
 /usr/share/man/man8/clamav-milter.8
 /usr/share/man/man8/clamd.8
+/usr/share/man/man8/clamonacc.8
 
 %files services
 %defattr(-,root,root,-)
+/usr/lib/systemd/system/clamav-clamonacc.service
 /usr/lib/systemd/system/clamav-daemon.service
 /usr/lib/systemd/system/clamav-daemon.socket
 /usr/lib/systemd/system/clamav-freshclam.service

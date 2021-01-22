@@ -143,7 +143,6 @@ libclamav.so.9:cli_detect_environment
 libclamav.so.9:cli_disasm_one
 libclamav.so.9:cli_errmsg
 libclamav.so.9:cli_filecopy
-libclamav.so.9:cli_fmap_scandesc
 libclamav.so.9:cli_free_vba_project
 libclamav.so.9:cli_ftw
 libclamav.so.9:cli_genhash_pe
@@ -187,7 +186,8 @@ libclamav.so.9:cli_regfree
 libclamav.so.9:cli_rmdirs
 libclamav.so.9:cli_rndnum
 libclamav.so.9:cli_sanitize_filepath
-libclamav.so.9:cli_scanbuff
+libclamav.so.9:cli_scan_buff
+libclamav.so.9:cli_scan_fmap
 libclamav.so.9:cli_sigopts_handler
 libclamav.so.9:cli_sigperf_events_destroy
 libclamav.so.9:cli_sigperf_print
@@ -197,6 +197,7 @@ libclamav.so.9:cli_strdup
 libclamav.so.9:cli_strerror
 libclamav.so.9:cli_strlcat
 libclamav.so.9:cli_strlcpy
+libclamav.so.9:cli_strntoul
 libclamav.so.9:cli_strrcpy
 libclamav.so.9:cli_strtok
 libclamav.so.9:cli_strtokbuf
@@ -302,6 +303,10 @@ libclamunrar_iface.so.9:libclamunrar_iface_LTX_unrar_peek_file_header
 libclamunrar_iface.so.9:libclamunrar_iface_LTX_unrar_skip_file
 libfreshclam.so.2:FRESHCLAM_PRIVATE
 libfreshclam.so.2:FRESHCLAM_PUBLIC
+libfreshclam.so.2:check_flevel
+libfreshclam.so.2:daemonize_parent_wait
+libfreshclam.so.2:daemonize_signal_parent
+libfreshclam.so.2:drop_privileges
 libfreshclam.so.2:fc_cleanup
 libfreshclam.so.2:fc_dns_query_update_info
 libfreshclam.so.2:fc_download_url_database
@@ -313,8 +318,12 @@ libfreshclam.so.2:fc_strerror
 libfreshclam.so.2:fc_test_database
 libfreshclam.so.2:fc_update_database
 libfreshclam.so.2:fc_update_databases
+libfreshclam.so.2:get_version
 libfreshclam.so.2:logg
 libfreshclam.so.2:logg_close
 libfreshclam.so.2:mprintf
-libfreshclam.so.2:optarg
-libfreshclam.so.2:optind
+libfreshclam.so.2:optfree
+libfreshclam.so.2:optget
+libfreshclam.so.2:optparse
+libfreshclam.so.2:print_version
+libfreshclam.so.2:sendln

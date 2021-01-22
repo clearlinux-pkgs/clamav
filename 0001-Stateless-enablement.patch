@@ -1,4 +1,4 @@
-From 1fa53aefcb66a360b2d9aea876eae92591379bf5 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Auke Kok <auke-jan.h.kok@intel.com>
 Date: Fri, 15 Nov 2019 10:07:16 -0800
 Subject: [PATCH] Stateless enablement.
@@ -15,10 +15,10 @@ Subject: [PATCH] Stateless enablement.
  8 files changed, 34 insertions(+), 31 deletions(-)
 
 diff --git a/clamav-milter/clamav-milter.c b/clamav-milter/clamav-milter.c
-index b73864f..55cd3d5 100644
+index 4d7ddfd..fbe94dd 100644
 --- a/clamav-milter/clamav-milter.c
 +++ b/clamav-milter/clamav-milter.c
-@@ -80,6 +80,7 @@ static void milter_exit(int sig)
+@@ -86,6 +86,7 @@ static void milter_exit(int sig)
  int main(int argc, char **argv)
  {
      char *my_socket, *pt;
@@ -26,7 +26,7 @@ index b73864f..55cd3d5 100644
      const struct optstruct *opt;
      time_t currtime;
      mode_t umsk;
-@@ -151,7 +152,14 @@ int main(int argc, char **argv)
+@@ -146,7 +147,14 @@ int main(int argc, char **argv)
          return 0;
      }
  
@@ -43,10 +43,10 @@ index b73864f..55cd3d5 100644
          printf("Unable to allocate memory for config file\n");
          return 1;
 diff --git a/clamd/clamd.c b/clamd/clamd.c
-index 87a45d3..7d4fde1 100644
+index 1857e98..5ba815a 100644
 --- a/clamd/clamd.c
 +++ b/clamd/clamd.c
-@@ -185,12 +185,18 @@ int main(int argc, char **argv)
+@@ -202,12 +202,18 @@ int main(int argc, char **argv)
  
      /* parse the config file */
      cfgfile = optget(opts, "config-file")->strarg;
@@ -68,7 +68,7 @@ index 87a45d3..7d4fde1 100644
          free(pt);
          return 1;
 diff --git a/etc/clamav-milter.conf.sample b/etc/clamav-milter.conf.sample
-index c61012c..c84ba22 100644
+index bf46b4f..72caac4 100644
 --- a/etc/clamav-milter.conf.sample
 +++ b/etc/clamav-milter.conf.sample
 @@ -1,10 +1,3 @@
@@ -83,7 +83,7 @@ index c61012c..c84ba22 100644
  ##
  ## Main options
 diff --git a/etc/clamd.conf.sample b/etc/clamd.conf.sample
-index ab15490..1d25827 100644
+index 828dd5a..59bc97f 100644
 --- a/etc/clamd.conf.sample
 +++ b/etc/clamd.conf.sample
 @@ -1,11 +1,3 @@
@@ -99,7 +99,7 @@ index ab15490..1d25827 100644
  # Uncomment this option to enable logging.
  # LogFile must be writable for the user running daemon.
 diff --git a/etc/freshclam.conf.sample b/etc/freshclam.conf.sample
-index 59d92e5..af8daa3 100644
+index 2f7d146..c857a37 100644
 --- a/etc/freshclam.conf.sample
 +++ b/etc/freshclam.conf.sample
 @@ -1,11 +1,3 @@
@@ -115,10 +115,10 @@ index 59d92e5..af8daa3 100644
  # Path to the database directory.
  # WARNING: It must match clamd.conf's directive!
 diff --git a/freshclam/freshclam.c b/freshclam/freshclam.c
-index 58d0c48..7263ddf 100644
+index 8db3b80..45278a4 100644
 --- a/freshclam/freshclam.c
 +++ b/freshclam/freshclam.c
-@@ -1512,6 +1512,7 @@ int main(int argc, char **argv)
+@@ -1517,6 +1517,7 @@ int main(int argc, char **argv)
      fc_error_t ret;
      fc_error_t status = FC_ECONNECTION;
      char *cfgfile     = NULL;
@@ -126,7 +126,7 @@ index 58d0c48..7263ddf 100644
      const char *arg   = NULL;
  
      struct optstruct *opts = NULL;
-@@ -1573,11 +1574,18 @@ int main(int argc, char **argv)
+@@ -1584,11 +1585,18 @@ int main(int argc, char **argv)
       * Parse the config file.
       */
      cfgfile = cli_strdup(optget(opts, "config-file")->strarg);
@@ -147,13 +147,13 @@ index 58d0c48..7263ddf 100644
      /*
       * Handle options that immediately exit.
 diff --git a/platform.h.in b/platform.h.in
-index bddbf1b..ab68fe7 100644
+index 442fb63..d72cf2c 100644
 --- a/platform.h.in
 +++ b/platform.h.in
-@@ -34,9 +34,13 @@ typedef	unsigned	int	in_addr_t;
- #define PATHSEP "/"
+@@ -112,9 +112,13 @@ typedef unsigned int in_addr_t;
  #endif
  
+ #ifndef _WIN32
 +#define DEFAULT_CONFDIR "/usr/share/defaults/clamav"
  #define CONFDIR_CLAMD CONFDIR PATHSEP "clamd.conf"
 +#define DEFAULT_CONFDIR_CLAMD DEFAULT_CONFDIR PATHSEP "clamd.conf"
@@ -161,27 +161,27 @@ index bddbf1b..ab68fe7 100644
 +#define DEFAULT_CONFDIR_FRESHCLAM DEFAULT_CONFDIR PATHSEP "freshclam.conf"
  #define CONFDIR_MILTER CONFDIR PATHSEP "clamav-milter.conf"
 +#define DEFAULT_CONFDIR_MILTER DEFAULT_CONFDIR PATHSEP "clamav-milter.conf"
+ #endif
  
- #define cli_to_utf8_maybe_alloc(x) (x)
- #define cli_strdup_to_utf8(x) strdup(x)
+ #ifndef WORDS_BIGENDIAN
 diff --git a/shared/optparser.c b/shared/optparser.c
-index dd1a51d..f568d64 100644
+index 072911c..846c025 100644
 --- a/shared/optparser.c
 +++ b/shared/optparser.c
-@@ -65,9 +65,9 @@ const struct clam_option __clam_options[] = {
+@@ -105,9 +105,9 @@ const struct clam_option __clam_options[] = {
  
      /* cmdline only */
      {NULL, "help", 'h', CLOPT_TYPE_BOOL, MATCH_BOOL, 0, NULL, 0, OPT_CLAMD | OPT_FRESHCLAM | OPT_CLAMSCAN | OPT_CLAMDSCAN | OPT_SIGTOOL | OPT_MILTER | OPT_CLAMCONF | OPT_CLAMDTOP | OPT_CLAMBC | OPT_CLAMONACC, "", ""},
--    {NULL, "config-file", 'c', CLOPT_TYPE_STRING, NULL, 0, CONFDIR_CLAMD, FLAG_REQUIRED, OPT_CLAMD | OPT_CLAMDSCAN | OPT_CLAMDTOP | OPT_CLAMONACC, "", ""},
--    {NULL, "config-file", 0, CLOPT_TYPE_STRING, NULL, 0, CONFDIR_FRESHCLAM, FLAG_REQUIRED, OPT_FRESHCLAM, "", ""},
--    {NULL, "config-file", 'c', CLOPT_TYPE_STRING, NULL, 0, CONFDIR_MILTER, FLAG_REQUIRED, OPT_MILTER, "", ""},
+-    {NULL, "config-file", 'c', CLOPT_TYPE_STRING, NULL, 0, CONST_CONFDIR_CLAMD, FLAG_REQUIRED, OPT_CLAMD | OPT_CLAMDSCAN | OPT_CLAMDTOP | OPT_CLAMONACC, "", ""},
+-    {NULL, "config-file", 0, CLOPT_TYPE_STRING, NULL, 0, CONST_CONFDIR_FRESHCLAM, FLAG_REQUIRED, OPT_FRESHCLAM, "", ""},
+-    {NULL, "config-file", 'c', CLOPT_TYPE_STRING, NULL, 0, CONST_CONFDIR_MILTER, FLAG_REQUIRED, OPT_MILTER, "", ""},
 +    {NULL, "config-file", 'c', CLOPT_TYPE_STRING, NULL, 0, NULL, FLAG_REQUIRED, OPT_CLAMD | OPT_CLAMDSCAN | OPT_CLAMDTOP | OPT_CLAMONACC, "", ""},
 +    {NULL, "config-file", 0, CLOPT_TYPE_STRING, NULL, 0, NULL, FLAG_REQUIRED, OPT_FRESHCLAM, "", ""},
 +    {NULL, "config-file", 'c', CLOPT_TYPE_STRING, NULL, 0, NULL, FLAG_REQUIRED, OPT_MILTER, "", ""},
      {NULL, "version", 'V', CLOPT_TYPE_BOOL, MATCH_BOOL, 0, NULL, 0, OPT_CLAMD | OPT_FRESHCLAM | OPT_CLAMSCAN | OPT_CLAMDSCAN | OPT_SIGTOOL | OPT_MILTER | OPT_CLAMCONF | OPT_CLAMDTOP | OPT_CLAMBC | OPT_CLAMONACC, "", ""},
      {NULL, "debug", 0, CLOPT_TYPE_BOOL, MATCH_BOOL, 0, NULL, 0, OPT_CLAMBC | OPT_CLAMD | OPT_FRESHCLAM | OPT_CLAMSCAN | OPT_SIGTOOL, "", ""},
      {NULL, "gen-json", 0, CLOPT_TYPE_BOOL, MATCH_BOOL, 0, NULL, 0, OPT_CLAMD | OPT_CLAMSCAN | OPT_SIGTOOL, "", ""},
-@@ -202,7 +202,7 @@ const struct clam_option __clam_options[] = {
+@@ -244,7 +244,7 @@ const struct clam_option __clam_options[] = {
  
      {"LogClean", NULL, 0, CLOPT_TYPE_BOOL, MATCH_BOOL, 0, NULL, 0, OPT_CLAMD, "Log all clean files.\nUseful in debugging but drastically increases the log size.", "yes"},
  
@@ -190,6 +190,3 @@ index dd1a51d..f568d64 100644
  
      {"LogFacility", NULL, 0, CLOPT_TYPE_STRING, NULL, -1, "LOG_LOCAL6", FLAG_REQUIRED, OPT_CLAMD | OPT_FRESHCLAM | OPT_MILTER, "Type of syslog messages.\nPlease refer to 'man syslog' for the facility names.", "LOG_MAIL"},
  
--- 
-2.24.0
-
