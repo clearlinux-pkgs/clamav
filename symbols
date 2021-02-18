@@ -149,6 +149,7 @@ libclamav.so.9:cli_genhash_pe
 libclamav.so.9:cli_gentemp
 libclamav.so.9:cli_gentemp_with_prefix
 libclamav.so.9:cli_gentempfd
+libclamav.so.9:cli_get_filepath_from_filedesc
 libclamav.so.9:cli_gettmpdir
 libclamav.so.9:cli_hashfile
 libclamav.so.9:cli_hashset_destroy
@@ -219,6 +220,8 @@ libclamav.so.9:cli_writen
 libclamav.so.9:decodeLine
 libclamav.so.9:disasmbuf
 libclamav.so.9:fmap
+libclamav.so.9:fmap_duplicate
+libclamav.so.9:free_duplicate_fmap
 libclamav.so.9:get_fpu_endian
 libclamav.so.9:html_normalise_map
 libclamav.so.9:html_normalise_mem
