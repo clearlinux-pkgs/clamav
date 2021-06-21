@@ -7,6 +7,7 @@ libgcc_s.so.1
 libltdl.so.7
 liblzma.so.5
 libm.so.6
+libmvec.so.1
 libncurses.so.6
 libpcre2-8.so.0
 libpthread.so.0

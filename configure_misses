@@ -1,53 +1,54 @@
-Configure miss: dld_link in -ldld
 Configure miss: _ prefix in compiled symbols
-Configure miss: sys/dl.h
-Configure miss: dld.h
-Configure miss: mach-o/dyld.h
-Configure miss: sys/int_types.h usability
-Configure miss: sys/int_types.h presence
-Configure miss: sys/int_types.h
-Configure miss: sys/inttypes.h usability
-Configure miss: sys/inttypes.h presence
-Configure miss: sys/inttypes.h
-Configure miss: ndir.h usability
-Configure miss: ndir.h presence
-Configure miss: ndir.h
-Configure miss: bind in -lsocket
-Configure miss: strnstr
-Configure miss: enable_extended_FILE_stdio
-Configure miss: sysctlbyname
-Configure miss: dn_expand in std libs
-Configure miss: localcharset.h usability
-Configure miss: localcharset.h presence
-Configure miss: localcharset.h
-Configure miss: locale_charset
-Configure miss: locale_charset in -lcharset
-Configure miss: supported LLVM version
-Configure miss: dld_link in -ldld
 Configure miss: _ prefix in compiled symbols
-Configure miss: sys/dl.h
-Configure miss: dld.h
-Configure miss: mach-o/dyld.h
-Configure miss: sys/int_types.h usability
-Configure miss: sys/int_types.h presence
-Configure miss: sys/int_types.h
-Configure miss: sys/inttypes.h usability
-Configure miss: sys/inttypes.h presence
-Configure miss: sys/inttypes.h
-Configure miss: ndir.h usability
-Configure miss: ndir.h presence
-Configure miss: ndir.h
 Configure miss: bind in -lsocket
-Configure miss: strnstr
-Configure miss: enable_extended_FILE_stdio
-Configure miss: sysctlbyname
-Configure miss: dn_expand in std libs
-Configure miss: localcharset.h usability
-Configure miss: localcharset.h presence
-Configure miss: localcharset.h
-Configure miss: locale_charset
-Configure miss: locale_charset in -lcharset
-Configure miss: supported LLVM version
+Configure miss: bind in -lsocket
 Configure miss: check_jsnorm.c:250:57: warning: format not a string literal and no format arguments [-Wformat-security]
 
 Configure miss: check_jsnorm.c:250:57: warning: format not a string literal and no format arguments [-Wformat-security]
+
+Configure miss: dld.h
+Configure miss: dld.h
+Configure miss: dld_link in -ldld
+Configure miss: dld_link in -ldld
+Configure miss: dn_expand in std libs
+Configure miss: dn_expand in std libs
+Configure miss: enable_extended_FILE_stdio
+Configure miss: enable_extended_FILE_stdio
+Configure miss: localcharset.h
+Configure miss: localcharset.h
+Configure miss: localcharset.h presence
+Configure miss: localcharset.h presence
+Configure miss: localcharset.h usability
+Configure miss: localcharset.h usability
+Configure miss: locale_charset
+Configure miss: locale_charset
+Configure miss: locale_charset in -lcharset
+Configure miss: locale_charset in -lcharset
+Configure miss: mach-o/dyld.h
+Configure miss: mach-o/dyld.h
+Configure miss: ndir.h
+Configure miss: ndir.h
+Configure miss: ndir.h presence
+Configure miss: ndir.h presence
+Configure miss: ndir.h usability
+Configure miss: ndir.h usability
+Configure miss: strnstr
+Configure miss: strnstr
+Configure miss: supported LLVM version
+Configure miss: supported LLVM version
+Configure miss: sys/dl.h
+Configure miss: sys/dl.h
+Configure miss: sys/int_types.h
+Configure miss: sys/int_types.h
+Configure miss: sys/int_types.h presence
+Configure miss: sys/int_types.h presence
+Configure miss: sys/int_types.h usability
+Configure miss: sys/int_types.h usability
+Configure miss: sys/inttypes.h
+Configure miss: sys/inttypes.h
+Configure miss: sys/inttypes.h presence
+Configure miss: sys/inttypes.h presence
+Configure miss: sys/inttypes.h usability
+Configure miss: sys/inttypes.h usability
+Configure miss: sysctlbyname
+Configure miss: sysctlbyname
