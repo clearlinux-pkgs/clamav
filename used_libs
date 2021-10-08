@@ -2,7 +2,6 @@ libbz2.so.1.0
 libc.so.6
 libcrypto.so.1.1
 libcurl.so.4
-libdl.so.2
 libgcc_s.so.1
 libltdl.so.7
 liblzma.so.5
@@ -10,8 +9,6 @@ libm.so.6
 libmvec.so.1
 libncurses.so.6
 libpcre2-8.so.0
-libpthread.so.0
-libresolv.so.2
 libssl.so.1.1
 libstdc++.so.6
 libsystemd.so.0

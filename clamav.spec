@@ -6,7 +6,7 @@
 #
 Name     : clamav
 Version  : 0.103.3
-Release  : 35
+Release  : 36
 URL      : https://www.clamav.net/downloads/production/clamav-0.103.3.tar.gz
 Source0  : https://www.clamav.net/downloads/production/clamav-0.103.3.tar.gz
 Source1  : clamav.tmpfiles
@@ -17,6 +17,7 @@ License  : Apache-2.0 BSD-2-Clause BSD-3-Clause GPL-2.0 LGPL-2.1 MIT NCSA NTP Zl
 Requires: clamav-bin = %{version}-%{release}
 Requires: clamav-config = %{version}-%{release}
 Requires: clamav-data = %{version}-%{release}
+Requires: clamav-filemap = %{version}-%{release}
 Requires: clamav-lib = %{version}-%{release}
 Requires: clamav-license = %{version}-%{release}
 Requires: clamav-man = %{version}-%{release}
@@ -62,6 +63,7 @@ Requires: clamav-data = %{version}-%{release}
 Requires: clamav-config = %{version}-%{release}
 Requires: clamav-license = %{version}-%{release}
 Requires: clamav-services = %{version}-%{release}
+Requires: clamav-filemap = %{version}-%{release}
 
 %description bin
 bin components for the clamav package.
@@ -96,11 +98,20 @@ Requires: clamav = %{version}-%{release}
 dev components for the clamav package.
 
 
+%package filemap
+Summary: filemap components for the clamav package.
+Group: Default
+
+%description filemap
+filemap components for the clamav package.
+
+
 %package lib
 Summary: lib components for the clamav package.
 Group: Libraries
 Requires: clamav-data = %{version}-%{release}
 Requires: clamav-license = %{version}-%{release}
+Requires: clamav-filemap = %{version}-%{release}
 
 %description lib
 lib components for the clamav package.
@@ -143,15 +154,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1624296925
+export SOURCE_DATE_EPOCH=1633737485
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=4 -fno-semantic-interposition -mprefer-vector-width=256 "
-export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=4 -fno-semantic-interposition -mprefer-vector-width=256 "
-export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=4 -fno-semantic-interposition -mprefer-vector-width=256 "
-export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=4 -fno-semantic-interposition -mprefer-vector-width=256 -std=gnu++98"
+export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
+export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
+export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
+export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 -std=gnu++98"
 %configure --disable-static --with-dbdir=/var/lib/clamav \
 --enable-clamonacc \
 --enable-check
@@ -159,11 +170,11 @@ make  %{?_smp_mflags}
 
 unset PKG_CONFIG_PATH
 pushd ../buildavx2/
-export CFLAGS="$CFLAGS -m64 -march=haswell"
-export CXXFLAGS="$CXXFLAGS -m64 -march=haswell"
-export FFLAGS="$FFLAGS -m64 -march=haswell"
-export FCFLAGS="$FCFLAGS -m64 -march=haswell"
-export LDFLAGS="$LDFLAGS -m64 -march=haswell"
+export CFLAGS="$CFLAGS -m64 -march=x86-64-v3"
+export CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3"
+export FFLAGS="$FFLAGS -m64 -march=x86-64-v3"
+export FCFLAGS="$FCFLAGS -m64 -march=x86-64-v3"
+export LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3"
 %configure --disable-static --with-dbdir=/var/lib/clamav \
 --enable-clamonacc \
 --enable-check
@@ -179,7 +190,7 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1624296925
+export SOURCE_DATE_EPOCH=1633737485
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/clamav
 cp %{_builddir}/clamav-0.103.3/COPYING %{buildroot}/usr/share/package-licenses/clamav/9a3515c3da4762b6ddbe88f02755b6edc8ce7f15
@@ -198,7 +209,8 @@ cp %{_builddir}/clamav-0.103.3/libclammspack/COPYING.LIB %{buildroot}/usr/share/
 cp %{_builddir}/clamav-0.103.3/libltdl/COPYING.LIB %{buildroot}/usr/share/package-licenses/clamav/01a6b4bf79aca9b556822601186afab86e8c4fbf
 cp %{_builddir}/clamav-0.103.3/unit_tests/input/COPYING %{buildroot}/usr/share/package-licenses/clamav/dfac199a7539a404407098a2541b9482279f690d
 pushd ../buildavx2/
-%make_install_avx2
+%make_install_v3
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 popd
 %make_install
 mkdir -p %{buildroot}/usr/lib/tmpfiles.d
@@ -223,16 +235,8 @@ done
 /usr/bin/clamonacc
 /usr/bin/clamscan
 /usr/bin/freshclam
-/usr/bin/haswell/clambc
-/usr/bin/haswell/clamconf
-/usr/bin/haswell/clamd
-/usr/bin/haswell/clamdscan
-/usr/bin/haswell/clamdtop
-/usr/bin/haswell/clamonacc
-/usr/bin/haswell/clamscan
-/usr/bin/haswell/freshclam
-/usr/bin/haswell/sigtool
 /usr/bin/sigtool
+/usr/share/clear/optimized-elf/bin*
 
 %files config
 %defattr(-,root,root,-)
@@ -250,10 +254,6 @@ done
 /usr/include/clamav-version.h
 /usr/include/clamav.h
 /usr/include/libfreshclam.h
-/usr/lib64/haswell/libclamav.so
-/usr/lib64/haswell/libclammspack.so
-/usr/lib64/haswell/libclamunrar.so
-/usr/lib64/haswell/libfreshclam.so
 /usr/lib64/libclamav.so
 /usr/lib64/libclammspack.so
 /usr/lib64/libclamunrar.so
@@ -261,16 +261,12 @@ done
 /usr/lib64/libfreshclam.so
 /usr/lib64/pkgconfig/libclamav.pc
 
+%files filemap
+%defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-clamav
+
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/haswell/libclamav.so.9
-/usr/lib64/haswell/libclamav.so.9.0.5
-/usr/lib64/haswell/libclammspack.so.0
-/usr/lib64/haswell/libclammspack.so.0.1.0
-/usr/lib64/haswell/libclamunrar.so.9
-/usr/lib64/haswell/libclamunrar.so.9.0.5
-/usr/lib64/haswell/libfreshclam.so.2
-/usr/lib64/haswell/libfreshclam.so.2.0.1
 /usr/lib64/libclamav.so.9
 /usr/lib64/libclamav.so.9.0.5
 /usr/lib64/libclammspack.so.0
@@ -281,6 +277,7 @@ done
 /usr/lib64/libclamunrar_iface.so.9.0.5
 /usr/lib64/libfreshclam.so.2
 /usr/lib64/libfreshclam.so.2.0.1
+/usr/share/clear/optimized-elf/lib*
 
 %files license
 %defattr(0644,root,root,0755)

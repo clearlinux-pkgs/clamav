@@ -10,8 +10,6 @@ Configure miss: dld.h
 Configure miss: dld.h
 Configure miss: dld_link in -ldld
 Configure miss: dld_link in -ldld
-Configure miss: dn_expand in std libs
-Configure miss: dn_expand in std libs
 Configure miss: enable_extended_FILE_stdio
 Configure miss: enable_extended_FILE_stdio
 Configure miss: localcharset.h
@@ -32,6 +30,8 @@ Configure miss: ndir.h presence
 Configure miss: ndir.h presence
 Configure miss: ndir.h usability
 Configure miss: ndir.h usability
+Configure miss: pthread_yield
+Configure miss: pthread_yield
 Configure miss: strnstr
 Configure miss: strnstr
 Configure miss: supported LLVM version
