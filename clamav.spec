@@ -6,7 +6,7 @@
 #
 Name     : clamav
 Version  : 0.103.3
-Release  : 40
+Release  : 41
 URL      : https://www.clamav.net/downloads/production/clamav-0.103.3.tar.gz
 Source0  : https://www.clamav.net/downloads/production/clamav-0.103.3.tar.gz
 Source1  : clamav.tmpfiles
@@ -154,15 +154,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1634665692
+export SOURCE_DATE_EPOCH=1656011063
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
-export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
-export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 "
-export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mno-vzeroupper -mprefer-vector-width=256 -std=gnu++98"
+export CFLAGS="$CFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
+export FCFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
+export FFLAGS="$FFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 "
+export CXXFLAGS="$CXXFLAGS -O3 -Ofast -falign-functions=32 -ffat-lto-objects -flto=auto -fno-semantic-interposition -mprefer-vector-width=256 -std=gnu++98"
 %configure --disable-static --with-dbdir=/var/lib/clamav \
 --enable-clamonacc \
 --enable-check
@@ -190,7 +190,7 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1634665692
+export SOURCE_DATE_EPOCH=1656011063
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/clamav
 cp %{_builddir}/clamav-0.103.3/COPYING %{buildroot}/usr/share/package-licenses/clamav/9a3515c3da4762b6ddbe88f02755b6edc8ce7f15
@@ -219,7 +219,7 @@ for sample in clamav-milter.conf clamd.conf freshclam.conf; do
 install -D -m0644 etc/$sample.sample %{buildroot}/usr/share/defaults/clamav/$sample
 done
 ## install_append end
-/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
@@ -267,6 +267,21 @@ done
 
 %files lib
 %defattr(-,root,root,-)
+/usr/lib64/glibc-hwcaps/x86-64-v3/libclamav.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libclamav.so.9
+/usr/lib64/glibc-hwcaps/x86-64-v3/libclamav.so.9.0.5
+/usr/lib64/glibc-hwcaps/x86-64-v3/libclammspack.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libclammspack.so.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libclammspack.so.0.1.0
+/usr/lib64/glibc-hwcaps/x86-64-v3/libclamunrar.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libclamunrar.so.9
+/usr/lib64/glibc-hwcaps/x86-64-v3/libclamunrar.so.9.0.5
+/usr/lib64/glibc-hwcaps/x86-64-v3/libclamunrar_iface.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libclamunrar_iface.so.9
+/usr/lib64/glibc-hwcaps/x86-64-v3/libclamunrar_iface.so.9.0.5
+/usr/lib64/glibc-hwcaps/x86-64-v3/libfreshclam.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libfreshclam.so.2
+/usr/lib64/glibc-hwcaps/x86-64-v3/libfreshclam.so.2.0.1
 /usr/lib64/libclamav.so.9
 /usr/lib64/libclamav.so.9.0.5
 /usr/lib64/libclammspack.so.0
@@ -277,7 +292,6 @@ done
 /usr/lib64/libclamunrar_iface.so.9.0.5
 /usr/lib64/libfreshclam.so.2
 /usr/lib64/libfreshclam.so.2.0.1
-/usr/share/clear/optimized-elf/lib*
 
 %files license
 %defattr(0644,root,root,0755)
