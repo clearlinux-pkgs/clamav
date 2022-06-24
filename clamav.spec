@@ -6,7 +6,7 @@
 #
 Name     : clamav
 Version  : 0.103.3
-Release  : 41
+Release  : 42
 URL      : https://www.clamav.net/downloads/production/clamav-0.103.3.tar.gz
 Source0  : https://www.clamav.net/downloads/production/clamav-0.103.3.tar.gz
 Source1  : clamav.tmpfiles
@@ -154,7 +154,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656011063
+export SOURCE_DATE_EPOCH=1656097773
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -190,7 +190,7 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1656011063
+export SOURCE_DATE_EPOCH=1656097773
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/clamav
 cp %{_builddir}/clamav-0.103.3/COPYING %{buildroot}/usr/share/package-licenses/clamav/9a3515c3da4762b6ddbe88f02755b6edc8ce7f15
