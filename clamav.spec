@@ -6,7 +6,7 @@
 #
 Name     : clamav
 Version  : 0.103.3
-Release  : 42
+Release  : 43
 URL      : https://www.clamav.net/downloads/production/clamav-0.103.3.tar.gz
 Source0  : https://www.clamav.net/downloads/production/clamav-0.103.3.tar.gz
 Source1  : clamav.tmpfiles
