@@ -6,7 +6,7 @@
 #
 Name     : clamav
 Version  : 0.103.3
-Release  : 47
+Release  : 48
 URL      : https://www.clamav.net/downloads/production/clamav-0.103.3.tar.gz
 Source0  : https://www.clamav.net/downloads/production/clamav-0.103.3.tar.gz
 Source1  : clamav.tmpfiles
@@ -154,7 +154,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656097773
+export SOURCE_DATE_EPOCH=1665097339
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -190,24 +190,24 @@ cd ../buildavx2;
 make %{?_smp_mflags} check || : || :
 
 %install
-export SOURCE_DATE_EPOCH=1656097773
+export SOURCE_DATE_EPOCH=1665097339
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/clamav
-cp %{_builddir}/clamav-0.103.3/COPYING %{buildroot}/usr/share/package-licenses/clamav/9a3515c3da4762b6ddbe88f02755b6edc8ce7f15
-cp %{_builddir}/clamav-0.103.3/COPYING.LGPL %{buildroot}/usr/share/package-licenses/clamav/9a1929f4700d2407c70b507b3b2aaf6226a9543c
-cp %{_builddir}/clamav-0.103.3/COPYING.YARA %{buildroot}/usr/share/package-licenses/clamav/c9b166c9c918ac6f123f0c70778297eb118537bc
-cp %{_builddir}/clamav-0.103.3/COPYING.bzip2 %{buildroot}/usr/share/package-licenses/clamav/521256a2cd47b39b31811a5df9bb724662ae326e
-cp %{_builddir}/clamav-0.103.3/COPYING.file %{buildroot}/usr/share/package-licenses/clamav/6178fe3d7980af9da8d734c13c56599b6775a20b
-cp %{_builddir}/clamav-0.103.3/COPYING.getopt %{buildroot}/usr/share/package-licenses/clamav/a4b006d9829d39c162d3853cf45ef8aa2844615c
-cp %{_builddir}/clamav-0.103.3/COPYING.llvm %{buildroot}/usr/share/package-licenses/clamav/4bdc478d273e3e8c75dbafbce0dc50bb8abc3628
-cp %{_builddir}/clamav-0.103.3/COPYING.pcre %{buildroot}/usr/share/package-licenses/clamav/24c848a024de84cdf4f7db7e65d5102b329a43bd
-cp %{_builddir}/clamav-0.103.3/COPYING.regex %{buildroot}/usr/share/package-licenses/clamav/28f373b92a4e7883d7243dfc65bb6fc0c9ca167e
-cp %{_builddir}/clamav-0.103.3/COPYING.zlib %{buildroot}/usr/share/package-licenses/clamav/0e1e05a11f29e9060b21c3926ddf6e80d441ca37
-cp %{_builddir}/clamav-0.103.3/libclamav/c++/llvm/LICENSE.TXT %{buildroot}/usr/share/package-licenses/clamav/22b913e80d34b4b5eba70ee11d70f1f487d97348
-cp %{_builddir}/clamav-0.103.3/libclamav/c++/llvm/autoconf/LICENSE.TXT %{buildroot}/usr/share/package-licenses/clamav/7aecc4590c57a3f3a0735a7e339d8635938d330f
-cp %{_builddir}/clamav-0.103.3/libclammspack/COPYING.LIB %{buildroot}/usr/share/package-licenses/clamav/e60c2e780886f95df9c9ee36992b8edabec00bcc
-cp %{_builddir}/clamav-0.103.3/libltdl/COPYING.LIB %{buildroot}/usr/share/package-licenses/clamav/01a6b4bf79aca9b556822601186afab86e8c4fbf
-cp %{_builddir}/clamav-0.103.3/unit_tests/input/COPYING %{buildroot}/usr/share/package-licenses/clamav/dfac199a7539a404407098a2541b9482279f690d
+cp %{_builddir}/clamav-%{version}/COPYING %{buildroot}/usr/share/package-licenses/clamav/9a3515c3da4762b6ddbe88f02755b6edc8ce7f15
+cp %{_builddir}/clamav-%{version}/COPYING.LGPL %{buildroot}/usr/share/package-licenses/clamav/9a1929f4700d2407c70b507b3b2aaf6226a9543c
+cp %{_builddir}/clamav-%{version}/COPYING.YARA %{buildroot}/usr/share/package-licenses/clamav/c9b166c9c918ac6f123f0c70778297eb118537bc
+cp %{_builddir}/clamav-%{version}/COPYING.bzip2 %{buildroot}/usr/share/package-licenses/clamav/521256a2cd47b39b31811a5df9bb724662ae326e
+cp %{_builddir}/clamav-%{version}/COPYING.file %{buildroot}/usr/share/package-licenses/clamav/6178fe3d7980af9da8d734c13c56599b6775a20b
+cp %{_builddir}/clamav-%{version}/COPYING.getopt %{buildroot}/usr/share/package-licenses/clamav/a4b006d9829d39c162d3853cf45ef8aa2844615c
+cp %{_builddir}/clamav-%{version}/COPYING.llvm %{buildroot}/usr/share/package-licenses/clamav/4bdc478d273e3e8c75dbafbce0dc50bb8abc3628
+cp %{_builddir}/clamav-%{version}/COPYING.pcre %{buildroot}/usr/share/package-licenses/clamav/24c848a024de84cdf4f7db7e65d5102b329a43bd
+cp %{_builddir}/clamav-%{version}/COPYING.regex %{buildroot}/usr/share/package-licenses/clamav/28f373b92a4e7883d7243dfc65bb6fc0c9ca167e
+cp %{_builddir}/clamav-%{version}/COPYING.zlib %{buildroot}/usr/share/package-licenses/clamav/0e1e05a11f29e9060b21c3926ddf6e80d441ca37
+cp %{_builddir}/clamav-%{version}/libclamav/c++/llvm/LICENSE.TXT %{buildroot}/usr/share/package-licenses/clamav/22b913e80d34b4b5eba70ee11d70f1f487d97348
+cp %{_builddir}/clamav-%{version}/libclamav/c++/llvm/autoconf/LICENSE.TXT %{buildroot}/usr/share/package-licenses/clamav/7aecc4590c57a3f3a0735a7e339d8635938d330f
+cp %{_builddir}/clamav-%{version}/libclammspack/COPYING.LIB %{buildroot}/usr/share/package-licenses/clamav/e60c2e780886f95df9c9ee36992b8edabec00bcc
+cp %{_builddir}/clamav-%{version}/libltdl/COPYING.LIB %{buildroot}/usr/share/package-licenses/clamav/01a6b4bf79aca9b556822601186afab86e8c4fbf
+cp %{_builddir}/clamav-%{version}/unit_tests/input/COPYING %{buildroot}/usr/share/package-licenses/clamav/dfac199a7539a404407098a2541b9482279f690d
 pushd ../buildavx2/
 %make_install_v3
 popd
@@ -254,6 +254,11 @@ done
 /usr/include/clamav-version.h
 /usr/include/clamav.h
 /usr/include/libfreshclam.h
+/usr/lib64/glibc-hwcaps/x86-64-v3/libclamav.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libclammspack.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libclamunrar.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libclamunrar_iface.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libfreshclam.so
 /usr/lib64/libclamav.so
 /usr/lib64/libclammspack.so
 /usr/lib64/libclamunrar.so
@@ -267,19 +272,14 @@ done
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/glibc-hwcaps/x86-64-v3/libclamav.so
 /usr/lib64/glibc-hwcaps/x86-64-v3/libclamav.so.9
 /usr/lib64/glibc-hwcaps/x86-64-v3/libclamav.so.9.0.5
-/usr/lib64/glibc-hwcaps/x86-64-v3/libclammspack.so
 /usr/lib64/glibc-hwcaps/x86-64-v3/libclammspack.so.0
 /usr/lib64/glibc-hwcaps/x86-64-v3/libclammspack.so.0.1.0
-/usr/lib64/glibc-hwcaps/x86-64-v3/libclamunrar.so
 /usr/lib64/glibc-hwcaps/x86-64-v3/libclamunrar.so.9
 /usr/lib64/glibc-hwcaps/x86-64-v3/libclamunrar.so.9.0.5
-/usr/lib64/glibc-hwcaps/x86-64-v3/libclamunrar_iface.so
 /usr/lib64/glibc-hwcaps/x86-64-v3/libclamunrar_iface.so.9
 /usr/lib64/glibc-hwcaps/x86-64-v3/libclamunrar_iface.so.9.0.5
-/usr/lib64/glibc-hwcaps/x86-64-v3/libfreshclam.so
 /usr/lib64/glibc-hwcaps/x86-64-v3/libfreshclam.so.2
 /usr/lib64/glibc-hwcaps/x86-64-v3/libfreshclam.so.2.0.1
 /usr/lib64/libclamav.so.9
