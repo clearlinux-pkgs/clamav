@@ -10,6 +10,7 @@ llvm-dev
 openssl-dev
 pcre2-dev
 pcre-dev
+rustc
 xz-dev
 zlib-dev
 nghttp2-dev

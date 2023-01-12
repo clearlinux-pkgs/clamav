@@ -1,2 +1,8 @@
 # This file contains pkgconfig build requirements that get picked up
 # but are undesirable. One entry per line, no whitespace.
+curses
+libsystemd-daemon
+milter
+mspack
+pcre2
+pthreadw32

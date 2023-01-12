@@ -1,3 +1,0 @@
---with-dbdir=/var/lib/clamav
---enable-clamonacc
---enable-check
