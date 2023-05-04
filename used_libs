@@ -8,7 +8,6 @@ libjson-c.so.5
 libm.so.6
 libncurses.so.6
 libpcre2-8.so.0
-libssl.so.3
 libstdc++.so.6
 libsystemd.so.0
 libtinfo.so.6
