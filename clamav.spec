@@ -5,7 +5,7 @@
 #
 Name     : clamav
 Version  : 1.1.0
-Release  : 54
+Release  : 55
 URL      : https://www.clamav.net/downloads/production/clamav-1.1.0.tar.gz
 Source0  : https://www.clamav.net/downloads/production/clamav-1.1.0.tar.gz
 Source1  : clamav.tmpfiles
@@ -159,7 +159,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1683210077
+export SOURCE_DATE_EPOCH=1685488613
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -196,7 +196,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1683210077
+export SOURCE_DATE_EPOCH=1685488613
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/clamav
 cp %{_builddir}/clamav-%{version}/COPYING.txt %{buildroot}/usr/share/package-licenses/clamav/9a3515c3da4762b6ddbe88f02755b6edc8ce7f15 || :
@@ -822,11 +822,6 @@ done
 
 %files dev
 %defattr(-,root,root,-)
-/V3/usr/lib64/libclamav.so
-/V3/usr/lib64/libclammspack.so
-/V3/usr/lib64/libclamunrar.so
-/V3/usr/lib64/libclamunrar_iface.so
-/V3/usr/lib64/libfreshclam.so
 /usr/include/clamav-types.h
 /usr/include/clamav-version.h
 /usr/include/clamav.h
@@ -967,15 +962,10 @@ done
 
 %files lib
 %defattr(-,root,root,-)
-/V3/usr/lib64/libclamav.so.12
 /V3/usr/lib64/libclamav.so.12.0.0
-/V3/usr/lib64/libclammspack.so.0
 /V3/usr/lib64/libclammspack.so.0.8.0
-/V3/usr/lib64/libclamunrar.so.12
 /V3/usr/lib64/libclamunrar.so.12.0.0
-/V3/usr/lib64/libclamunrar_iface.so.12
 /V3/usr/lib64/libclamunrar_iface.so.12.0.0
-/V3/usr/lib64/libfreshclam.so.3
 /V3/usr/lib64/libfreshclam.so.3.0.0
 /usr/lib64/libclamav.so.12
 /usr/lib64/libclamav.so.12.0.0
