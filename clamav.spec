@@ -5,7 +5,7 @@
 #
 Name     : clamav
 Version  : 1.1.0
-Release  : 55
+Release  : 56
 URL      : https://www.clamav.net/downloads/production/clamav-1.1.0.tar.gz
 Source0  : https://www.clamav.net/downloads/production/clamav-1.1.0.tar.gz
 Source1  : clamav.tmpfiles
@@ -147,7 +147,7 @@ tar xf %{_sourcedir}/clamav-2023-04-28-17-57-23.tar.xz
 cd %{_builddir}/clamav-1.1.0
 mkdir -p ./vendor
 cp -r %{_builddir}/clamav-2023-04-28-17-57-23/* %{_builddir}/clamav-1.1.0/./vendor
-%patch1 -p1
+%patch -P 1 -p1
 mkdir -p .cargo
 echo '[source.crates-io]' >> .cargo/config.toml
 echo 'replace-with = "vendored-sources"' >> .cargo/config.toml
@@ -159,7 +159,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1685488613
+export SOURCE_DATE_EPOCH=1689797671
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -196,7 +196,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1685488613
+export SOURCE_DATE_EPOCH=1689797671
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/clamav
 cp %{_builddir}/clamav-%{version}/COPYING.txt %{buildroot}/usr/share/package-licenses/clamav/9a3515c3da4762b6ddbe88f02755b6edc8ce7f15 || :
