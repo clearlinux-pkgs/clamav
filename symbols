@@ -234,10 +234,12 @@ libclamav.so.12:cli_wm_readdir
 libclamav.so.12:cli_writen
 libclamav.so.12:decodeLine
 libclamav.so.12:disasmbuf
+libclamav.so.12:ffierror_fmt
 libclamav.so.12:fmap
 libclamav.so.12:fmap_dump_to_file
 libclamav.so.12:fmap_duplicate
 libclamav.so.12:free_duplicate_fmap
+libclamav.so.12:fuzzy_hash_calculate_image
 libclamav.so.12:get_fpu_endian
 libclamav.so.12:have_clamjit
 libclamav.so.12:html_normalise_map

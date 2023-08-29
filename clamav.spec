@@ -6,13 +6,13 @@
 # Source0 file verified with key 0xCCE0DFD21EC1A9BF (research@sourcefire.com)
 #
 Name     : clamav
-Version  : 1.1.1
-Release  : 57
-URL      : https://www.clamav.net/downloads/production/clamav-1.1.1.tar.gz
-Source0  : https://www.clamav.net/downloads/production/clamav-1.1.1.tar.gz
+Version  : 1.2.0
+Release  : 58
+URL      : https://www.clamav.net/downloads/production/clamav-1.2.0.tar.gz
+Source0  : https://www.clamav.net/downloads/production/clamav-1.2.0.tar.gz
 Source1  : clamav.tmpfiles
 Source2  : http://localhost/cgit/vendor/clamav/snapshot/clamav-2023-08-16-16-46-09.tar.xz
-Source3  : https://www.clamav.net/downloads/production/clamav-1.1.1.tar.gz.sig
+Source3  : https://www.clamav.net/downloads/production/clamav-1.2.0.tar.gz.sig
 Summary  : A GPL virus scanner
 Group    : Development/Tools
 License  : 0BSD Apache-2.0 BSD-2-Clause BSD-3-Clause BSL-1.0 GPL-2.0 HPND ICU LGPL-2.1 MIT MPL-2.0-no-copyleft-exception NCSA OFL-1.1 Unicode-DFS-2016 Unlicense Zlib bzip2-1.0.6
@@ -144,12 +144,12 @@ services components for the clamav package.
 
 
 %prep
-%setup -q -n clamav-1.1.1
+%setup -q -n clamav-1.2.0
 cd %{_builddir}
 tar xf %{_sourcedir}/clamav-2023-08-16-16-46-09.tar.xz
-cd %{_builddir}/clamav-1.1.1
+cd %{_builddir}/clamav-1.2.0
 mkdir -p ./vendor
-cp -r %{_builddir}/clamav-2023-08-16-16-46-09/* %{_builddir}/clamav-1.1.1/./vendor
+cp -r %{_builddir}/clamav-2023-08-16-16-46-09/* %{_builddir}/clamav-1.2.0/./vendor
 %patch -P 1 -p1
 mkdir -p .cargo
 echo '[source.crates-io]' >> .cargo/config.toml
@@ -162,7 +162,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1692205192
+export SOURCE_DATE_EPOCH=1693318751
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -199,7 +199,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1692205192
+export SOURCE_DATE_EPOCH=1693318751
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/clamav
 cp %{_builddir}/clamav-%{version}/COPYING.txt %{buildroot}/usr/share/package-licenses/clamav/9a3515c3da4762b6ddbe88f02755b6edc8ce7f15 || :
@@ -222,7 +222,6 @@ cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/adler/LICENSE-MIT
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/aho-corasick/COPYING %{buildroot}/usr/share/package-licenses/clamav/dd445710e6e4caccc4f8a587a130eaeebe83f6f6 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/aho-corasick/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/4c8990add9180fc59efa5b0d8faf643c9709501e || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/aho-corasick/UNLICENSE %{buildroot}/usr/share/package-licenses/clamav/ff007ce11f3ff7964f1a5b04202c4e95b5c82c85 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/ansi_term/LICENCE %{buildroot}/usr/share/package-licenses/clamav/7293920aac55f4d275cef83ba10d706585622a53 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/atty/LICENSE %{buildroot}/usr/share/package-licenses/clamav/3acad00f27f89710cd66d3f5528aed5046ac28d9 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/autocfg/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/autocfg/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/e6d32072ef5f584a805b429ecbd4eec428316dde || :
@@ -251,7 +250,6 @@ cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/cexpr/LICENSE-MIT
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/cfg-if/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/cfg-if/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/3b042d3d971924ec0296687efd50dbe08b734976 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/clang-sys/LICENSE.txt %{buildroot}/usr/share/package-licenses/clamav/2b8b815229aa8a61e483fb4ba0588b8b6c491890 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/clap-2.34.0/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/2111f90a2fa5afba10ae753c5ca31a1d8080f597 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/clap/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/7df059597099bb7dcf25d2a9aedfaf4465f72d8d || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/clap/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/8fe88f09d35c6054e0a780a793833c16fb888168 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/clap_lex/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/7df059597099bb7dcf25d2a9aedfaf4465f72d8d || :
@@ -275,8 +273,6 @@ cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/digest/LICENSE-AP
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/digest/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/9c6e81caeb170dd5501d39895df9efb657c3c86b || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/either/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/either/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/3a86cfdfa553511b381388859c9e94ce9e1f916b || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/env_logger/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/env_logger/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/ce3a2603094e799f42ce99c40941544dfcc5c4a5 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/errno-dragonfly/LICENSE %{buildroot}/usr/share/package-licenses/clamav/73724f22eb580e208c5af2e3d089be349209e847 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/errno/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/errno/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/7a842f34e127456338641b14c7a00ec246d89fb6 || :
@@ -307,14 +303,10 @@ cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/heck/LICENSE-APAC
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/heck/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/60c3522081bf15d7ac1d4c5a63de425ef253e87a || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/hermit-abi-0.1.19/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/hermit-abi-0.1.19/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/ce3a2603094e799f42ce99c40941544dfcc5c4a5 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/hermit-abi-0.2.6/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/hermit-abi-0.2.6/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/ce3a2603094e799f42ce99c40941544dfcc5c4a5 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/hermit-abi/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/hermit-abi/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/ce3a2603094e799f42ce99c40941544dfcc5c4a5 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/hex/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/669a1e53b9dd9df3474300d3d959bb85bad75945 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/hex/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/b916da18877fcec3d37860fe60c1189c447e90b9 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/humantime/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/669a1e53b9dd9df3474300d3d959bb85bad75945 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/humantime/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/ff432d95fdfee3587e45abd61685c2209d245901 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/image/LICENSE %{buildroot}/usr/share/package-licenses/clamav/b74b5791fb289fbd839c174f4785a22bb80b4981 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/indexmap/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/indexmap/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/7e5936a6fa3cf3518c01cec41345adf27399fe12 || :
@@ -341,8 +333,8 @@ cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/linux-raw-sys/LIC
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/linux-raw-sys/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/ce3a2603094e799f42ce99c40941544dfcc5c4a5 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/lock_api/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/lock_api/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/9a2b6b4ad55ec42cf19fc686c74668d3a6303ae7 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/log/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/aca374a3362a76702c50bd4e7d590a57f8834fc7 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/log/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/f9cc84dfc567fdc0979fddc3e6257191d8ebc9d8 || :
+cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/log/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
+cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/log/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/9f3c36d2b7d381d9cf382a00166f3fbd06783636 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/memchr/COPYING %{buildroot}/usr/share/package-licenses/clamav/dd445710e6e4caccc4f8a587a130eaeebe83f6f6 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/memchr/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/4c8990add9180fc59efa5b0d8faf643c9709501e || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/memchr/UNLICENSE %{buildroot}/usr/share/package-licenses/clamav/ff007ce11f3ff7964f1a5b04202c4e95b5c82c85 || :
@@ -350,10 +342,6 @@ cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/memoffset/LICENSE
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/minimal-lexical/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5feaf15b3fa7d2d226d811e5fcd49098a1ea520c || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/minimal-lexical/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/ce3a2603094e799f42ce99c40941544dfcc5c4a5 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/minimal-lexical/LICENSE.md %{buildroot}/usr/share/package-licenses/clamav/cd3fe820606ed34ac2591caf068c7cabd3ab3509 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/miniz_oxide-0.6.2/LICENSE %{buildroot}/usr/share/package-licenses/clamav/18d7fe3c54698817feec1f2e04a9d5a0f046a80c || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/miniz_oxide-0.6.2/LICENSE-APACHE.md %{buildroot}/usr/share/package-licenses/clamav/598f87f072f66e2269dd6919292b2934dbb20492 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/miniz_oxide-0.6.2/LICENSE-MIT.md %{buildroot}/usr/share/package-licenses/clamav/18d7fe3c54698817feec1f2e04a9d5a0f046a80c || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/miniz_oxide-0.6.2/LICENSE-ZLIB.md %{buildroot}/usr/share/package-licenses/clamav/11f0f1bee61ba6393c3dc7aefee7b92b604ff6c0 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/miniz_oxide/LICENSE %{buildroot}/usr/share/package-licenses/clamav/18d7fe3c54698817feec1f2e04a9d5a0f046a80c || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/miniz_oxide/LICENSE-APACHE.md %{buildroot}/usr/share/package-licenses/clamav/598f87f072f66e2269dd6919292b2934dbb20492 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/miniz_oxide/LICENSE-MIT.md %{buildroot}/usr/share/package-licenses/clamav/18d7fe3c54698817feec1f2e04a9d5a0f046a80c || :
@@ -371,7 +359,7 @@ cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/num_cpus/LICENSE-
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/num_cpus/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/ec9737a4e769cce48d5c95d9c75a4ba5f29a2563 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/once_cell/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/once_cell/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/ce3a2603094e799f42ce99c40941544dfcc5c4a5 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/os_str_bytes/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/7df059597099bb7dcf25d2a9aedfaf4465f72d8d || :
+cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/os_str_bytes/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/a6a5418b4d67d9f3a33cbf184b25ac7f9fa87d33 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/os_str_bytes/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/dace34da2cc966a228ddef52cbc28943931af544 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/peeking_take_while/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/peeking_take_while/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/60c3522081bf15d7ac1d4c5a63de425ef253e87a || :
@@ -381,6 +369,8 @@ cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/pin-project/LICEN
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/pin-project/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/ce3a2603094e799f42ce99c40941544dfcc5c4a5 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/png/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/png/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/f218d448a9934e1982ea7e03a0b4feab2db3bb54 || :
+cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/prettyplease/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/6e5c4711bcae04967d7f5b5e01cf56ae03bebe7a || :
+cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/prettyplease/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/ce3a2603094e799f42ce99c40941544dfcc5c4a5 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/primal-check/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/primal-check/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/ab971bf8d36d0dc0153be91a27a3578b533ffcd3 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/proc-macro2/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/6e5c4711bcae04967d7f5b5e01cf56ae03bebe7a || :
@@ -394,12 +384,13 @@ cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/rayon-core/LICENS
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/rayon/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/rayon/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/2bf5cac862d5a0480b5d5bcd3a1852d68bfeee84 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/redox_syscall/LICENSE %{buildroot}/usr/share/package-licenses/clamav/a00165152c82ea55b9fc254890dc8860c25e3bb6 || :
+cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/regex-automata/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
+cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/regex-automata/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/9f3c36d2b7d381d9cf382a00166f3fbd06783636 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/regex-syntax/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/regex-syntax/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/9f3c36d2b7d381d9cf382a00166f3fbd06783636 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/regex-syntax/src/unicode_tables/LICENSE-UNICODE %{buildroot}/usr/share/package-licenses/clamav/68d12a03b339648117165b9c021b93f26974d6f6 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/regex/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/regex/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/9f3c36d2b7d381d9cf382a00166f3fbd06783636 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/regex/src/testdata/LICENSE %{buildroot}/usr/share/package-licenses/clamav/553e82bef8637312393c95bc62e23e8f81fd9e47 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/rustc-hash/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/rustc-hash/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/ce3a2603094e799f42ce99c40941544dfcc5c4a5 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/rustdct/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/e93cf855c696b206b454a02349019921af541f7f || :
@@ -431,7 +422,6 @@ cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/smallvec/LICENSE-
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/spin/LICENSE %{buildroot}/usr/share/package-licenses/clamav/42631684b818350022ee962eef0a9592b159d838 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/strength_reduce/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/e93cf855c696b206b454a02349019921af541f7f || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/strength_reduce/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/06892779f397e61638ac56bce57dbc383872e1bf || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/strsim-0.8.0/LICENSE %{buildroot}/usr/share/package-licenses/clamav/14be3fb1db517b371b463625246427013600f126 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/strsim/LICENSE %{buildroot}/usr/share/package-licenses/clamav/f5feee4154156527645a9b18ef29da23fc859ca9 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/syn-1.0.109/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/syn-1.0.109/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/ce3a2603094e799f42ce99c40941544dfcc5c4a5 || :
@@ -442,7 +432,6 @@ cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/tempfile/LICENSE-
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/termcolor/COPYING %{buildroot}/usr/share/package-licenses/clamav/dd445710e6e4caccc4f8a587a130eaeebe83f6f6 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/termcolor/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/4c8990add9180fc59efa5b0d8faf643c9709501e || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/termcolor/UNLICENSE %{buildroot}/usr/share/package-licenses/clamav/ff007ce11f3ff7964f1a5b04202c4e95b5c82c85 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/textwrap-0.11.0/LICENSE %{buildroot}/usr/share/package-licenses/clamav/70e36c2f54755e87728778c41ab4b809e5b0b502 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/textwrap/LICENSE %{buildroot}/usr/share/package-licenses/clamav/70e36c2f54755e87728778c41ab4b809e5b0b502 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/thiserror-impl/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/6e5c4711bcae04967d7f5b5e01cf56ae03bebe7a || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/thiserror-impl/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/ce3a2603094e799f42ce99c40941544dfcc5c4a5 || :
@@ -462,11 +451,6 @@ cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/unicode-ident/LIC
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/unicode-segmentation/COPYRIGHT %{buildroot}/usr/share/package-licenses/clamav/5ed53061419caf64f84d064f3641392a2a10fa7f || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/unicode-segmentation/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/unicode-segmentation/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/60c3522081bf15d7ac1d4c5a63de425ef253e87a || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/unicode-width/COPYRIGHT %{buildroot}/usr/share/package-licenses/clamav/5ed53061419caf64f84d064f3641392a2a10fa7f || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/unicode-width/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/unicode-width/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/60c3522081bf15d7ac1d4c5a63de425ef253e87a || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/vec_map/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5feaf15b3fa7d2d226d811e5fcd49098a1ea520c || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/vec_map/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/60c3522081bf15d7ac1d4c5a63de425ef253e87a || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/version_check/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/version_check/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/cfcb552ef0afbe7ccb4128891c0de00685988a4b || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/wasi/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/5798832c31663cedc1618d18544d445da0295229 || :
@@ -490,40 +474,22 @@ cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/winapi-util/LICEN
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/winapi-util/UNLICENSE %{buildroot}/usr/share/package-licenses/clamav/ff007ce11f3ff7964f1a5b04202c4e95b5c82c85 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/winapi/LICENSE-APACHE %{buildroot}/usr/share/package-licenses/clamav/92170cdc034b2ff819323ff670d3b7266c8bffcd || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/winapi/LICENSE-MIT %{buildroot}/usr/share/package-licenses/clamav/2243f7a86daaa727d34d92e987a741036f288464 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows-sys-0.45.0/license-apache-2.0 %{buildroot}/usr/share/package-licenses/clamav/a3b3a65335e78bde163f84d599fa899776552994 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows-sys-0.45.0/license-mit %{buildroot}/usr/share/package-licenses/clamav/689ec0681815ecc32bee639c68e7740add7bd301 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows-sys/license-apache-2.0 %{buildroot}/usr/share/package-licenses/clamav/a3b3a65335e78bde163f84d599fa899776552994 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows-sys/license-mit %{buildroot}/usr/share/package-licenses/clamav/689ec0681815ecc32bee639c68e7740add7bd301 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows-targets-0.42.2/license-apache-2.0 %{buildroot}/usr/share/package-licenses/clamav/a3b3a65335e78bde163f84d599fa899776552994 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows-targets-0.42.2/license-mit %{buildroot}/usr/share/package-licenses/clamav/689ec0681815ecc32bee639c68e7740add7bd301 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows-targets/license-apache-2.0 %{buildroot}/usr/share/package-licenses/clamav/a3b3a65335e78bde163f84d599fa899776552994 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows-targets/license-mit %{buildroot}/usr/share/package-licenses/clamav/689ec0681815ecc32bee639c68e7740add7bd301 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_aarch64_gnullvm-0.42.2/license-apache-2.0 %{buildroot}/usr/share/package-licenses/clamav/a3b3a65335e78bde163f84d599fa899776552994 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_aarch64_gnullvm-0.42.2/license-mit %{buildroot}/usr/share/package-licenses/clamav/689ec0681815ecc32bee639c68e7740add7bd301 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_aarch64_gnullvm/license-apache-2.0 %{buildroot}/usr/share/package-licenses/clamav/a3b3a65335e78bde163f84d599fa899776552994 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_aarch64_gnullvm/license-mit %{buildroot}/usr/share/package-licenses/clamav/689ec0681815ecc32bee639c68e7740add7bd301 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_aarch64_msvc-0.42.2/license-apache-2.0 %{buildroot}/usr/share/package-licenses/clamav/a3b3a65335e78bde163f84d599fa899776552994 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_aarch64_msvc-0.42.2/license-mit %{buildroot}/usr/share/package-licenses/clamav/689ec0681815ecc32bee639c68e7740add7bd301 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_aarch64_msvc/license-apache-2.0 %{buildroot}/usr/share/package-licenses/clamav/a3b3a65335e78bde163f84d599fa899776552994 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_aarch64_msvc/license-mit %{buildroot}/usr/share/package-licenses/clamav/689ec0681815ecc32bee639c68e7740add7bd301 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_i686_gnu-0.42.2/license-apache-2.0 %{buildroot}/usr/share/package-licenses/clamav/a3b3a65335e78bde163f84d599fa899776552994 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_i686_gnu-0.42.2/license-mit %{buildroot}/usr/share/package-licenses/clamav/689ec0681815ecc32bee639c68e7740add7bd301 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_i686_gnu/license-apache-2.0 %{buildroot}/usr/share/package-licenses/clamav/a3b3a65335e78bde163f84d599fa899776552994 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_i686_gnu/license-mit %{buildroot}/usr/share/package-licenses/clamav/689ec0681815ecc32bee639c68e7740add7bd301 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_i686_msvc-0.42.2/license-apache-2.0 %{buildroot}/usr/share/package-licenses/clamav/a3b3a65335e78bde163f84d599fa899776552994 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_i686_msvc-0.42.2/license-mit %{buildroot}/usr/share/package-licenses/clamav/689ec0681815ecc32bee639c68e7740add7bd301 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_i686_msvc/license-apache-2.0 %{buildroot}/usr/share/package-licenses/clamav/a3b3a65335e78bde163f84d599fa899776552994 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_i686_msvc/license-mit %{buildroot}/usr/share/package-licenses/clamav/689ec0681815ecc32bee639c68e7740add7bd301 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_x86_64_gnu-0.42.2/license-apache-2.0 %{buildroot}/usr/share/package-licenses/clamav/a3b3a65335e78bde163f84d599fa899776552994 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_x86_64_gnu-0.42.2/license-mit %{buildroot}/usr/share/package-licenses/clamav/689ec0681815ecc32bee639c68e7740add7bd301 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_x86_64_gnu/license-apache-2.0 %{buildroot}/usr/share/package-licenses/clamav/a3b3a65335e78bde163f84d599fa899776552994 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_x86_64_gnu/license-mit %{buildroot}/usr/share/package-licenses/clamav/689ec0681815ecc32bee639c68e7740add7bd301 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_x86_64_gnullvm-0.42.2/license-apache-2.0 %{buildroot}/usr/share/package-licenses/clamav/a3b3a65335e78bde163f84d599fa899776552994 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_x86_64_gnullvm-0.42.2/license-mit %{buildroot}/usr/share/package-licenses/clamav/689ec0681815ecc32bee639c68e7740add7bd301 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_x86_64_gnullvm/license-apache-2.0 %{buildroot}/usr/share/package-licenses/clamav/a3b3a65335e78bde163f84d599fa899776552994 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_x86_64_gnullvm/license-mit %{buildroot}/usr/share/package-licenses/clamav/689ec0681815ecc32bee639c68e7740add7bd301 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_x86_64_msvc-0.42.2/license-apache-2.0 %{buildroot}/usr/share/package-licenses/clamav/a3b3a65335e78bde163f84d599fa899776552994 || :
-cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_x86_64_msvc-0.42.2/license-mit %{buildroot}/usr/share/package-licenses/clamav/689ec0681815ecc32bee639c68e7740add7bd301 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_x86_64_msvc/license-apache-2.0 %{buildroot}/usr/share/package-licenses/clamav/a3b3a65335e78bde163f84d599fa899776552994 || :
 cp %{_builddir}/clamav-%{version}/libclamav_rust/.cargo/vendor/windows_x86_64_msvc/license-mit %{buildroot}/usr/share/package-licenses/clamav/689ec0681815ecc32bee639c68e7740add7bd301 || :
 cp %{_builddir}/clamav-%{version}/libclammspack/COPYING.LIB %{buildroot}/usr/share/package-licenses/clamav/e60c2e780886f95df9c9ee36992b8edabec00bcc || :
@@ -1032,21 +998,21 @@ done
 
 %files lib
 %defattr(-,root,root,-)
-/V3/usr/lib64/libclamav.so.12.0.0
+/V3/usr/lib64/libclamav.so.12.0.1
 /V3/usr/lib64/libclammspack.so.0.8.0
-/V3/usr/lib64/libclamunrar.so.12.0.0
-/V3/usr/lib64/libclamunrar_iface.so.12.0.0
-/V3/usr/lib64/libfreshclam.so.3.0.0
+/V3/usr/lib64/libclamunrar.so.12.0.1
+/V3/usr/lib64/libclamunrar_iface.so.12.0.1
+/V3/usr/lib64/libfreshclam.so.3.0.1
 /usr/lib64/libclamav.so.12
-/usr/lib64/libclamav.so.12.0.0
+/usr/lib64/libclamav.so.12.0.1
 /usr/lib64/libclammspack.so.0
 /usr/lib64/libclammspack.so.0.8.0
 /usr/lib64/libclamunrar.so.12
-/usr/lib64/libclamunrar.so.12.0.0
+/usr/lib64/libclamunrar.so.12.0.1
 /usr/lib64/libclamunrar_iface.so.12
-/usr/lib64/libclamunrar_iface.so.12.0.0
+/usr/lib64/libclamunrar_iface.so.12.0.1
 /usr/lib64/libfreshclam.so.3
-/usr/lib64/libfreshclam.so.3.0.0
+/usr/lib64/libfreshclam.so.3.0.1
 
 %files license
 %defattr(0644,root,root,0755)
@@ -1136,6 +1102,7 @@ done
 /usr/share/package-licenses/clamav/a3b3a65335e78bde163f84d599fa899776552994
 /usr/share/package-licenses/clamav/a4b006d9829d39c162d3853cf45ef8aa2844615c
 /usr/share/package-licenses/clamav/a516ba6caf067da2655e12b09e0a1f7d186d6888
+/usr/share/package-licenses/clamav/a6a5418b4d67d9f3a33cbf184b25ac7f9fa87d33
 /usr/share/package-licenses/clamav/a74c5e048f9ed570eb892f81ca5daf05936475b0
 /usr/share/package-licenses/clamav/a8ced9a6c206a0e47fac6c6d0d0ce839e85b2eb7
 /usr/share/package-licenses/clamav/a97a2888bca904918b3b9ec008fde1d6e9905a6d
@@ -1201,4 +1168,6 @@ done
 /usr/lib/systemd/system/clamav-clamonacc.service
 /usr/lib/systemd/system/clamav-daemon.service
 /usr/lib/systemd/system/clamav-daemon.socket
+/usr/lib/systemd/system/clamav-freshclam-once.service
+/usr/lib/systemd/system/clamav-freshclam-once.timer
 /usr/lib/systemd/system/clamav-freshclam.service
