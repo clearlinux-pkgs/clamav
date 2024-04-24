@@ -1,0 +1,57 @@
+From c85fe2e76bc36680f8ff6a6a9fc90eb41013ab3b Mon Sep 17 00:00:00 2001
+From: "Brett T. Warden" <brett.t.warden@intel.com>
+Date: Wed, 24 Apr 2024 14:46:59 -0700
+Subject: [PATCH] Search distro-provided path for a database
+
+and use it if it's newer than the database in the configured path or the
+default path.
+---
+ common/misc.c | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
+
+diff --git a/common/misc.c b/common/misc.c
+index 541728cf4fec..8b88bd42c4fe 100644
+--- a/common/misc.c
++++ b/common/misc.c
+@@ -116,6 +116,38 @@ char *freshdbdir(void)
+         }
+     }
+ 
++    /* Also check distro-provided database directory */
++    char *dist_db = "/usr/share/clamav";
++    if (strcmp(dbdir, dist_db)) {
++        char *daily = (char *)malloc(strlen(dist_db) + strlen(dbdir) + 30);
++        if (daily == NULL) {
++            fprintf(stderr, "Unable to allocate memory for db directory...\n");
++            return NULL;
++        }
++        sprintf(daily, "%s" PATHSEP "daily.cvd", dist_db);
++        if (access(daily, R_OK))
++            sprintf(daily, "%s" PATHSEP "daily.cld", dist_db);
++
++        if (!access(daily, R_OK) && (d1 = cl_cvdhead(daily))) {
++            sprintf(daily, "%s" PATHSEP "daily.cvd", dbdir);
++            if (access(daily, R_OK))
++                sprintf(daily, "%s" PATHSEP "daily.cld", dbdir);
++
++            if (!access(daily, R_OK) && (d2 = cl_cvdhead(daily))) {
++                free(daily);
++                if (d1->version > d2->version)
++                    dbdir = dist_db;
++                cl_cvdfree(d2);
++            } else {
++                free(daily);
++                dbdir = dist_db;
++            }
++            cl_cvdfree(d1);
++        } else {
++            free(daily);
++        }
++    }
++
+     retdir = strdup(dbdir);
+ 
+     if (opts)
+-- 
+2.44.0
+
