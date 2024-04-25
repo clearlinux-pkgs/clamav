@@ -1,3 +1,10 @@
 for sample in clamav-milter.conf clamd.conf freshclam.conf; do
 	install -D -m0644 etc/$sample.sample %{buildroot}/usr/share/defaults/clamav/$sample
 done
+
+timers_target_wants=%{buildroot}/usr/lib/systemd/system/timers.target.wants/
+update_triggers_target_wants=%{buildroot}/usr/lib/systemd/system/update-triggers.target.wants/
+mkdir -p ${timers_target_wants}
+mkdir -p ${update_triggers_target_wants}
+ln -s ../clamav-freshclam-once.timer ${timers_target_wants}
+ln -s ../clamav-freshclam-once.service ${update_triggers_target_wants}
