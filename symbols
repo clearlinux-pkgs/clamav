@@ -154,6 +154,8 @@ libclamav.so.12:cli_disasm_one
 libclamav.so.12:cli_errmsg
 libclamav.so.12:cli_filecopy
 libclamav.so.12:cli_free_vba_project
+libclamav.so.12:cli_ftcode
+libclamav.so.12:cli_ftname
 libclamav.so.12:cli_ftw
 libclamav.so.12:cli_genhash_pe
 libclamav.so.12:cli_gentemp
@@ -179,6 +181,7 @@ libclamav.so.12:cli_js_output
 libclamav.so.12:cli_js_parse_done
 libclamav.so.12:cli_js_process_buffer
 libclamav.so.12:cli_ldbtokenize
+libclamav.so.12:cli_magic_scan_buff
 libclamav.so.12:cli_malloc
 libclamav.so.12:cli_memstr
 libclamav.so.12:cli_ole2_extract

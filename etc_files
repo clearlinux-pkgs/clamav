@@ -1,0 +1,5 @@
+/etc/:
+/etc/clamav:
+clamav
+clamd.conf.sample
+freshclam.conf.sample
