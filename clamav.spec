@@ -9,7 +9,7 @@
 #
 Name     : clamav
 Version  : 1.3.1
-Release  : 64
+Release  : 65
 URL      : https://www.clamav.net/downloads/production/clamav-1.3.1.tar.gz
 Source0  : https://www.clamav.net/downloads/production/clamav-1.3.1.tar.gz
 Source1  : clamav.tmpfiles
